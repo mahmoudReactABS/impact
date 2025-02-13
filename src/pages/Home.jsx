@@ -11,7 +11,7 @@ import thinking from '../assets/thinking.png';
 
 import { RiGlobeLine, RiCustomerService2Line } from "react-icons/ri";
 import { PiGraduationCapBold, PiBookBold, PiCertificateFill } from "react-icons/pi";
-import { ImBooks  } from "react-icons/im";
+import { ImBooks } from "react-icons/im";
 
 import Bnfts from '../Components/Bnfts';
 import Service from '../Components/Service';
@@ -21,12 +21,13 @@ import Course from '../Components/Course';
 function Home() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
   return (
     <main className=''>
       <Toaster />
 
-      <section className='grid grid-cols-1 lg:grid-cols-2 gap-16 md:px-40 px-10'>
-        <article data-aos="fade-right" data-aos-duration="3000" data-aos-delay="1000" className='container flex flex-col justify-center space-y-8'>
+      <section className='grid grid-cols-1 lg:grid-cols-2 gap-16 md:px-40 px-10 mt-8'>
+        <article data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1000" className='container flex flex-col justify-center space-y-8'>
           <h1 className='text-2xl md:text-3xl lg:text-5xl font-bold'>{t('fluencyStartsHere1')} <span className="text-[var(--Yellow)]">{t('fluencyStartsHere2')}</span>  {t('fluencyStartsHere3')}</h1>
           <p className='text-lg md:text-xl'>{t('learnFromInstructors')}</p>
 
@@ -41,14 +42,14 @@ function Home() {
           </div>
         </article>
 
-        <article data-aos="fade-left" data-aos-duration="3000" data-aos-delay="1000" className='container flex justify-center lg:justify-end'>
+        <article data-aos="fade-left" data-aos-duration="1000" data-aos-delay="1000" className='container flex justify-center lg:justify-end'>
           <img className="h-full w-lg" src={photo} alt="student" />
         </article>
       </section>
 
       <section className='text-center my-10 md:px-40 px-10'>
         <h1 className='text-2xl md:text-3xl my-8 font-extrabold'>{t('ourJourney')}</h1>
-        <img data-aos="fade-up" data-aos-duration="1500" data-aos-delay="400" className='w-full mx-auto' src={meeting} alt="meeting" />
+        <img data-aos="fade-up" data-aos-duration="2500" data-aos-delay="400" className='w-full mx-auto' src={meeting} alt="meeting" />
       </section>
 
       <section className='text-center w-full my-8 bg-[var(--Light)]'>
@@ -61,7 +62,7 @@ function Home() {
             <p className='md:text-xl'>{t('coursesAvailable')}</p>
           </article>
 
-          <article data-aos="fade-up" data-aos-duration="2000" data-aos-delay="2000" className='flex justify-center text-center my-2 flex-col items-center space-y-3'>
+          <article data-aos="fade-up" data-aos-duration="1000" data-aos-delay="2000" className='flex justify-center text-center my-2 flex-col items-center space-y-3'>
             <PiGraduationCapBold className='text-8xl text-white bg-[var(--Main)] p-6 rounded-full' />
             <h1 className='font-bold text-2xl'>+360</h1>
             <p className='md:text-xl'>{t('certifiedGraduates')}</p>
@@ -118,11 +119,11 @@ function Home() {
             <img src={thinking} className='w-full h-96 lg:h-[80%]' alt="thinking" />
           </div>
           <div className='space-y-4 lg:space-y-8 lg:col-span-4'>
-            <Service data-aos="fade-left" data-aos-delay="100" icon={RiCustomerService2Line} title={t('interactiveLiveClasses')} details={t('interactiveLiveClassesDetails')} />
-            <Service data-aos="fade-left" data-aos-delay="200" icon={FaMoneyBillWave} title={t('affordablePlans')} details={t('affordablePlansDetails')} />
-            <Service data-aos="fade-left" data-aos-delay="300" icon={RiGlobeLine} title={t('globalAccess')} details={t('globalAccessDetails')} />
-            <Service data-aos="fade-left" data-aos-delay="400" icon={PiCertificateFill} title={t('certifiedCourses')} details={t('certifiedCoursesDetails')} />
-            <Service data-aos="fade-left" data-aos-delay="500" icon={ImBooks} title={t('comprehensiveResources')} details={t('comprehensiveResourcesDetails')} />
+            <Service data-aos="fade-left" icon={RiCustomerService2Line} title={t('interactiveLiveClasses')} details={t('interactiveLiveClassesDetails')} />
+            <Service data-aos="fade-left" icon={FaMoneyBillWave} title={t('affordablePlans')} details={t('affordablePlansDetails')} />
+            <Service data-aos="fade-left" icon={RiGlobeLine} title={t('globalAccess')} details={t('globalAccessDetails')} />
+            <Service data-aos="fade-left" icon={PiCertificateFill} title={t('certifiedCourses')} details={t('certifiedCoursesDetails')} />
+            <Service data-aos="fade-left" icon={ImBooks} title={t('comprehensiveResources')} details={t('comprehensiveResourcesDetails')} />
           </div>
         </article>
       </section>
