@@ -42,7 +42,7 @@ function Nav() {
         ))}
       </section>
 
-      <Link className='text-[var(--Yellow)] text-3xl flex gap-5 justify-start items-center' to='/dash/login'>
+      <Link className='text-[var(--Yellow)] text-2xl font-semibold flex gap-5 justify-start items-center' to='/dash/login'>
         <MdOutlineLogout />
         <span>Logout</span>
       </Link>

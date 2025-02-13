@@ -132,7 +132,7 @@ function Home() {
         <h1 className='font-bold text-center text-xl md:text-3xl py-5 mb-8'>{t('masterEnglish')}</h1>
 
         <article data-aos="fade-up" data-aos-delay="1000" className='grid grid-cols-1 lg:grid-cols-3 gap-2 md:gap-6'>
-          <Course direc="ILETS" title={t('courses.ilets')} />
+          <Course direc="IELTS" title={t('courses.ielts')} />
           <Course direc="Group" title={t('courses.group')} />
           <Course direc="Private" title={t('courses.private')} />
         </article>

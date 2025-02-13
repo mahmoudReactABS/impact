@@ -40,7 +40,7 @@
   "comprehensiveResourcesDetails": "استفد من مكتبة غنية بالمواد التعليمية.",
   "masterEnglish": "اتقن الإنجليزية مع هذه الدورات",
   "courses": {
-    "ilets": "إيلتس",
+    "ielts": "إيلتس",
     "group": "مجموعة",
     "private": "خاص"
   },
@@ -86,7 +86,7 @@
   "category": "الفئة",
   "group": "مجموعة",
   "private": "خاص",
-  "ilets": "إيلتس",
+  "ielts": "إيلتس",
   "chooseCountry": "اختر دولتك",
   "submit": "إرسال",
   "back": "رجوع",

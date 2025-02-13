@@ -76,7 +76,7 @@ const AppForm = () => {
               <option disabled value="">
                 {t('category')}
               </option>
-              <option value="ILETS">{t('ilets')}</option>
+              <option value="IELTS">{t('ielts')}</option>
               <option value="general">{t('general')}</option>
             </select>
           </div>

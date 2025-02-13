@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Link } from 'react-router-dom';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -8,16 +8,30 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 function HomePage() {
  const dataChart = {
   labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-  datasets: [{ data: [125, 260, 125, 175, 125, 200, 222, 0, 0, 0], borderRadius: 50, borderWidth: 0, backgroundColor: '#F5D019', barThickness: 10, },],
- },
-  options = {
-   responsive: true,
-   plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false }, },
-   scales: {
-    x: { beginAtZero: false, grid: { display: false }, },
-    y: { beginAtZero: false, grid: { display: false }, },
+  datasets: [
+   {
+    data: [125, 260, 125, 175, 125, 200, 222, 0, 0, 0],
+    borderRadius: 50,
+    borderWidth: 0,
+    backgroundColor: '#F5D019',
+    barThickness: 10,
    },
-  };
+  ],
+ };
+
+ const options = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+   legend: { display: false },
+   tooltip: { mode: 'index', intersect: false },
+  },
+  scales: {
+   x: { beginAtZero: false, grid: { display: false } },
+   y: { beginAtZero: false, grid: { display: false } },
+  },
+ };
+
  const details = [
   { number: "50", description: "Free Test" },
   { number: "350", description: "Free Session" },
@@ -30,13 +44,13 @@ function HomePage() {
    <section className="bg-[var(--Main)] text-white p-10 grid grid-cols-3 rounded-2xl">
     <article className="space-y-5 col-span-1">
      <h1 className="text-2xl font-bold">Dashboard Insights</h1>
-     <p className="text-sm">
+     <p style={{textAlign:'justify'}} className="text-sm">
       Track the number of students who have taken free placement tests,
       attended free sessions, and enrolled in paid courses.
      </p>
     </article>
 
-    <article className="grid grid-cols-4 gap-4 px-4 col-span-2">
+    <article className="grid grid-cols-4 gap-4 ps-4 col-span-2">
      {details.map((item, index) => (
       <div key={index} className="bg-[var(--Light)]/50 text-center p-5 rounded-2xl space-y-2">
        <h1 className="text-4xl text-[var(--Yellow)] font-bold">{item.number}</h1>
@@ -47,28 +61,27 @@ function HomePage() {
    </section>
 
    <section className="grid grid-cols-2 space-x-10 rounded-2xl p-10 border-2 border-[var(--SubTextBorder)]/50">
-    <article className="space-y-8 flex flex-col">
-     <h1 className="text-3xl font-bold"> Monthly Enrollment Trends</h1>
-     <p>
-      Analyze student enrollment patterns throughout the year with a
-      clear visual representation. This chart helps track growth, identify
-      peak registration periods, and make data-driven decisions for future
-      course offerings.
+    <article className="space-y-8 flex flex-col h-full">
+     <h1 className="text-3xl font-bold">Monthly Enrollment Trends</h1>
+     <p style={{textAlign:'justify'}}>
+      Analyze student enrollment patterns throughout the year with a clear visual representation. This chart helps track growth, identify peak registration periods, and make data-driven decisions for future course offerings.
      </p>
 
-     <div className="justify-self-end space-y-2">
+     <div className="mt-auto justify-self-end space-y-2">
       <h1 className="text-3xl text-[var(--Yellow)] font-bold">250 Students</h1>
       <p>July 2024</p>
      </div>
     </article>
 
-    <article>
-     <Bar data={dataChart} options={options} />
+    <article className=''>
+     <div style={{ height: '350px' }}>
+      <Bar data={dataChart} options={options} />
+     </div>
     </article>
    </section>
 
-   <section className='space-y-10'>
-    <h1 className="text-2xl font-bold">Recants Students Requests </h1>
+   <section className="space-y-10">
+    <h1 className="text-2xl font-bold">Recent Students Requests</h1>
 
     <div className="overflow-hidden border-2 border-[#347792] rounded-xl">
      <table className="w-full text-center table-auto">
@@ -90,7 +103,9 @@ function HomePage() {
         <td className="p-4">0123456789</td>
         <td className="p-4">Egypt</td>
         <td className="p-4">Free Session</td>
-        <td className="p-4"><button className='underline text-[var(--Yellow)]'>select date</button></td>
+        <td className="p-4">
+         <button className="underline text-[var(--Yellow)]">select date</button>
+        </td>
        </tr>
        <tr className="hover:bg-gray-100">
         <td className="p-4">John</td>
@@ -98,7 +113,9 @@ function HomePage() {
         <td className="p-4">0987654321</td>
         <td className="p-4">USA</td>
         <td className="p-4">Free Session</td>
-        <td className="p-4"><button className='underline text-[var(--Yellow)]'>select date</button></td>
+        <td className="p-4">
+         <button className="underline text-[var(--Yellow)]">select date</button>
+        </td>
        </tr>
        <tr className="hover:bg-gray-100">
         <td className="p-4">Maria</td>
@@ -106,13 +123,15 @@ function HomePage() {
         <td className="p-4">0555555555</td>
         <td className="p-4">Spain</td>
         <td className="p-4">Free Session</td>
-        <td className="p-4"><button className='underline text-[var(--Yellow)]'>select date</button></td>
+        <td className="p-4">
+         <button className="underline text-[var(--Yellow)]">select date</button>
+        </td>
        </tr>
       </tbody>
      </table>
     </div>
     <div className="flex px-6 py-0.5 justify-end">
-     <Link className='underline'>See more</Link>
+     <Link className="underline">See more</Link>
     </div>
    </section>
   </main>

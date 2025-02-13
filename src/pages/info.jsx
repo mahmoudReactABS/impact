@@ -1,22 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-
 import { FaCalendarAlt, FaChartLine } from 'react-icons/fa';
 import { IoPersonSharp } from 'react-icons/io5';
 import { GiTeacher } from "react-icons/gi";
-
+import { db } from '../data/firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
 import Option from '../Components/Option';
-import data from '../data/Courses.json';
-
-const courses = data;
 
 function CourseDetails() {
   const { i18n } = useTranslation();
   const { courseName } = useParams();
   const currentLanguage = i18n.language;
+  const [course, setCourse] = useState(null);
 
-  const course = courses[courseName]?.[currentLanguage];
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const docRef = doc(db, "courses", courseName);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const courseData = docSnap.data()?.[currentLanguage];
+          setCourse(courseData);
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching course: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourse();
+  }, [courseName, currentLanguage]);
 
   if (!course) {
     return <div>{currentLanguage === 'en' ? 'Course not found' : 'الدورة غير موجودة'}</div>;
@@ -62,21 +80,10 @@ function CourseDetails() {
         <h2 className="text-xl font-bold">{currentLanguage === 'en' ? 'Options' : 'الخيارات'}</h2>
 
         <article className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {course.Options.map((opt) => (
-            <Option
-              key={opt.id}
-              number={opt.id}
-              levelno={opt.levelno}
-              priceBefore={opt.priceBefore}
-              priceAfter={opt.priceAfter}
-              duration={opt.duration}
-              totalTime={opt.totalTime}
-              sessionPerWeek={opt.sessionPerWeek}
-              Hours={opt.Hours}
-              scheduleType={opt.scheduleType}
-              courseCategory={courseName === 'ILETS' ? 'ILETS' : 'general'}
-              option={courseName != 'ILETS' && courseName}
-            />
+          {course.Options && course.Options.map((opt) => (
+            <Option key={opt.id} number={opt.id} levelno={opt.levelno} priceBefore={opt.priceBefore} priceAfter={opt.priceAfter} duration={opt.duration}
+              totalTime={opt.totalTime} sessionPerWeek={opt.sessionPerWeek} Hours={opt.Hours} scheduleType={opt.scheduleType}
+              courseCategory={courseName === 'IELTS' ? 'IELTS' : 'general'} option={courseName !== 'IELTS' && courseName} />
           ))}
         </article>
       </section>

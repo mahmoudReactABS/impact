@@ -142,7 +142,7 @@ const FreeTest = () => {
             </option>
             <option value="Group">{t('group')}</option>
             <option value="Private">{t('private')}</option>
-            <option value="ILETS">{t('ilets')}</option>
+            <option value="IELTS">{t('ielts')}</option>
           </select>
         </div>
 

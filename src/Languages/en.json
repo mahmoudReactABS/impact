@@ -40,7 +40,7 @@
   "comprehensiveResourcesDetails": "Benefit from a library of rich materials.",
   "masterEnglish": "Master English with These Courses",
   "courses": {
-    "ilets": "ILETS",
+    "ielts": "IELTS",
     "group": "Group",
     "private": "Private"
   },
@@ -85,7 +85,7 @@
   "category": "Category",
   "group": "Group",
   "private": "Private",
-  "ilets": "ILETS",
+  "ielts": "IELTS",
   "chooseCountry": "Choose your country",
   "submit": "Submit",
   "back": "Back",
