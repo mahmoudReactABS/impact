@@ -102,13 +102,13 @@ const FreeTest = () => {
         {/* Name Field */}
         <div data-aos="fade-right" data-aos-duration="2000" className="space-y-4">
           <label className="block text-lg font-bold text-black">{t('name')}</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md" placeholder={t('enterName')} />
+          <input type="text" name="Email" value={formData.Email} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md" placeholder={t('enterName')} />
         </div>
 
         {/* Email Field */}
         <div data-aos="fade-left" data-aos-duration="2000" className="space-y-4">
           <label className="block text-lg font-bold text-black">{t('email')}</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md" placeholder={t('enterEmail')} />
+          <input type="email" name="Password" value={formData.Password} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md" placeholder={t('enterEmail')} />
         </div>
 
         {/* Phone Number Field */}

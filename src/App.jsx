@@ -16,6 +16,9 @@ import Login from './pages/dashboard/Login';
 import HomePage from './pages/dashboard/HomePage';
 import DashLayout from './Layouts/DashLayout';
 import Settings from './pages/dashboard/Settings';
+import AddNewAdmin from './pages/dashboard/AddNewAdmin';
+import EditAdmin from './pages/dashboard/EditAdmin';
+import LoginLayout from './Layouts/LoginLayout';
 
 function App() {
   return (
@@ -34,13 +37,18 @@ function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="bookTest" element={<FreeTest />} />
           <Route path="ApplicationForm" element={<AppForm />} />
-          <Route path="/dash/login" element={<Login />} />
         </Route>
 
         {/* Dashboard layout */}
         <Route path="/dash" element={<DashLayout />}>
           <Route index element={<HomePage />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="settings/AddNew" element={<AddNewAdmin />} />
+          <Route path="settings/UpdateAdmin" element={<EditAdmin />} />
+        </Route>
+
+        <Route path="/dash/login" element={<LoginLayout />}>
+        <Route index element={<Login />} />
         </Route>
       </Routes>
     </Router>

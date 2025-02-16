@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, doc, deleteDoc, addDoc, updateDoc, getDocs } from 'firebase/firestore';
 
-const firebaseConfig = { 
+const firebaseConfig = {
   apiKey: "AIzaSyC-pzomCDHQjXeKNkYfcSFrDEGNb8ZMIEc",
   authDomain: "impact-89f6d.firebaseapp.com",
   projectId: "impact-89f6d",
@@ -14,4 +14,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export { db, collection, addDoc };
+export { db, doc, deleteDoc, collection, addDoc, updateDoc, getDocs };  
