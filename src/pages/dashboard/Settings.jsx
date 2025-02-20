@@ -4,7 +4,7 @@ import OtherAdmin from '../../Components/dashboard/OtherAdmin';
 import { db, collection, doc, deleteDoc } from '../../data/firebaseConfig';
 import { query, where, getDocs } from 'firebase/firestore';
 import { useAdmin } from '../../AdminContext';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 function Settings() {
  const [otherAdmins, setOtherAdmins] = useState([]);
@@ -42,6 +42,10 @@ function Settings() {
   }
  };
 
+ if (!admin) {
+  return <Navigate to="/dash/login" />
+ }
+ 
  return (
   <main className="space-y-10">
    <h1 className="font-bold text-2xl">Settings</h1>
@@ -54,7 +58,7 @@ function Settings() {
    <section className="space-y-4">
     <article className="flex justify-between items-center">
      <h3 className="font-bold text-xl">Other Admins</h3>
-     <Link onClick={()=>window.scroll(0,0)} to="/dash/settings/AddNew" type="submit" className="p-3 rounded-xl bg-[var(--Yellow)]">
+     <Link onClick={() => window.scroll(0, 0)} to="/dash/settings/AddNew" type="submit" className="p-3 rounded-xl bg-[var(--Yellow)]">
       Add New Admin
      </Link>
     </article>

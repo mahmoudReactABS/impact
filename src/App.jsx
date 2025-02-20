@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import MainLayout from './Layouts/MainLayout';
 import SubLayout from './Layouts/SubLayout';
+import LoginLayout from './Layouts/LoginLayout';
 
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
@@ -18,9 +19,12 @@ import DashLayout from './Layouts/DashLayout';
 import Settings from './pages/dashboard/Settings';
 import AddNewAdmin from './pages/dashboard/AddNewAdmin';
 import EditAdmin from './pages/dashboard/EditAdmin';
-import LoginLayout from './Layouts/LoginLayout';
+import Requests from './pages/dashboard/Requests';
+import TimePicker from './pages/dashboard/Time';
+import StudentsBooking from './pages/dashboard/StudentsBooking';
 
 function App() {
+
   return (
     <Router>
       <Routes>
@@ -45,10 +49,13 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="settings/AddNew" element={<AddNewAdmin />} />
           <Route path="settings/UpdateAdmin" element={<EditAdmin />} />
+          <Route path="requests" element={<Requests />} />
+          <Route path="time" element={<TimePicker />} />
+          <Route path="booking" element={<StudentsBooking />} />
         </Route>
 
         <Route path="/dash/login" element={<LoginLayout />}>
-        <Route index element={<Login />} />
+          <Route index element={<Login />} />
         </Route>
       </Routes>
     </Router>

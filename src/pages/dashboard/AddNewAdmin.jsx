@@ -4,16 +4,11 @@ import { db, collection, addDoc } from '../../data/firebaseConfig';
 import { query, where, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
-import { toast } from "react-hot-toast";
+import { Modal } from 'react-responsive-modal';
 
 function AddNewAdmin() {
- const [formData, setFormData] = useState({
-  Name: '',
-  Email: '',
-  Phone: '',
-  Password: '',
-  Previlige: 'Admin'
- }),
+ const [formData, setFormData] = useState({ Name: '', Email: '', Phone: '', Password: '', Previlige: 'Admin' }),
+  [openSuccessModal, setOpenSuccessModal] = useState(false),
   navigate = useNavigate();
 
  const handleChange = (e) => {
@@ -47,7 +42,11 @@ function AddNewAdmin() {
 
    await addDoc(collection(db, 'Admins'), { Name: formData.Name, Email: formData.Email, Password: formData.Password, Phone: formData.Phone, Previlige: formData.Previlige, });
 
-   navigate('/dash/settings');
+   setOpenSuccessModal(true);
+   setTimeout(() => {
+    navigate('/dash/settings');
+    setOpenSuccessModal(false);
+   }, 2000);
 
    Swal.fire({
     showCloseButton: true,
@@ -111,6 +110,11 @@ function AddNewAdmin() {
      </button>
     </article>
    </section>
+
+   {/* Success Modal */}
+      <Modal open={openSuccessModal} onClose={() => setOpenSuccessModal(false)} center classNames={{ modal: "rounded-2xl",closeButton:'bg-red-500' }}>
+       <h2 className="my-12">Successfully Added</h2>
+      </Modal>
   </main>
  );
 }

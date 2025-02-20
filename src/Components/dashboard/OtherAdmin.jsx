@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const OtherAdmin = (props) => {
  const { info, onDelete } = props;
  const [openModal, setOpenModal] = useState(false);
+ const [openSuccessModal, setOpenSuccessModal] = useState(false);
  const navigate = useNavigate();
 
  const editAdminInfo = () => {
@@ -17,6 +18,8 @@ const OtherAdmin = (props) => {
  const handleDeleteClick = () => {
   onDelete(info.id);
   setOpenModal(false);
+  setOpenSuccessModal(true);
+  setTimeout(() => setOpenSuccessModal(false), 2000);
   window.scroll(0, 0)
  };
 
@@ -50,9 +53,9 @@ const OtherAdmin = (props) => {
     </div>
    </section>
 
-   <Modal open={openModal} onClose={() => setOpenModal(false)} center>
+   <Modal open={openModal} onClose={() => setOpenModal(false)} center classNames={{ modal: "rounded-2xl" }}>
     <h2 className="my-12">This action cannot be undone. Are you sure you want to delete?</h2>
-    <div className="flex justify-end space-x-8 my-12">
+    <div className="flex justify-end space-x-8 my-8">
      <button className="px-8 py-2 rounded-xl border-2 border-[var(--Yellow)]" onClick={() => setOpenModal(false)}>
       Cancel
      </button>
@@ -60,6 +63,11 @@ const OtherAdmin = (props) => {
       Delete
      </button>
     </div>
+   </Modal>
+
+   {/* Success Modal */}
+   <Modal open={openSuccessModal} onClose={() => setOpenSuccessModal(false)} center classNames={{ modal: "rounded-2xl" }}>
+    <h2 className="my-12">Successfully deleted!</h2>
    </Modal>
   </article>
  );

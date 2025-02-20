@@ -67,7 +67,7 @@
   "WhyWeAreUnique": "Why We Are Unique",
   "ExpertGuidance": "Expert Guidance",
   "ExploreMore": "Explore More",
-  "ExploreLess":"Explore Less",
+  "ExploreLess": "Explore Less",
   "OurTeachingApproach": "Our Teaching Approach",
   "MeetOurInstructors": "Meet Our Expert Instructors",
   "PersonalizedFeedback": "Personalized Feedback",
@@ -138,5 +138,8 @@
   "FlexibleScheduling": "Flexible Scheduling",
   "FlexibleSchedulingDescription": "Choose from a variety of course times to fit your lifestyle.",
   "OurAchievements": "Our Achievements",
-  "OurAchievementsDescription": "Our platform was created to help people achieve English fluency, connect globally, and access new opportunities, driven by educators dedicated to making learning accessible for all."
+  "OurAchievementsDescription": "Our platform was created to help people achieve English fluency, connect globally, and access new opportunities, driven by educators dedicated to making learning accessible for all.",
+  "chooseOption": "Choose Option",
+  "freeTest": "Free Test",
+  "freeSess": "Free Session"
 }

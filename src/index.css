@@ -1,20 +1,40 @@
 @import "tailwindcss";
-button{
- cursor: pointer;
+@import "react-datepicker/dist/react-datepicker.css";
+
+:root {
+  /* website colors */
+  --GradBg: #004a8f;
+  --Main: #0d5cae;
+  --LightTxt: #031323b2;
+  --Light: #e6f1fd;
+  --Input: #e6f1fde5;
+  --Yellow: #f5d019;
+  --SubText: #031323a6;
+  --SubTextBorder: #68686880;
+  
+  /* clock colors */
+  --top-selected-color: var(--Yellow);
+  --top-colon-color: black;
+  --clock-wrapper-bg: white;
+  --top-text-color: black;
+  --top-meridiem-color: black;
+  
+  --numbers-text-color: black;
+  
+  --hand-line-color: var(--Yellow);
+  --hand-circle-center: var(--Yellow);
+  --hand-circle-outer: var(--Yellow);
+  --hand-minute-circle: var(--Yellow);
+  
+    --meridiem-selected-bg-color: var(--Yellow);
+    --meridiem-text-color: black;
+    --meridiem-selected-text-color: black;
 }
 
-:root{
- --GradBg:#004A8F;
- --Main:#0D5CAE;
- --LightTxt:#031323B2;;
- --Light:#E6F1FD;
- --Input:#E6F1FDE5;
- --Yellow:#F5D019;
- --SubText:#031323A6 ;
- --SubTextBorder:#68686880;
-
+*, *::after, *::before {
+  font-family: "poppins";
 }
 
-*,*::after,*::before{
- font-family:'poppins';
+button,Link {
+  cursor: pointer;
 }

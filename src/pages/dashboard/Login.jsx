@@ -17,7 +17,7 @@ function Login() {
     const storedAdmin = localStorage.getItem('admin');
     if (storedAdmin) {
       setAdmin(JSON.parse(storedAdmin));
-      navigate('/dash'); 
+      navigate('/dash/'); 
     }
   }, [setAdmin, navigate]);
 

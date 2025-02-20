@@ -12,10 +12,10 @@ import thinking from '../assets/thinking.png';
 import { RiGlobeLine, RiCustomerService2Line } from "react-icons/ri";
 import { PiGraduationCapBold, PiBookBold, PiCertificateFill } from "react-icons/pi";
 import { ImBooks } from "react-icons/im";
+import { FaMoneyBillWave } from 'react-icons/fa';
 
 import Bnfts from '../Components/Bnfts';
 import Service from '../Components/Service';
-import { FaMoneyBillWave } from 'react-icons/fa';
 import Course from '../Components/Course';
 
 function Home() {
@@ -105,7 +105,7 @@ function Home() {
 
         {/* Book Free Trial Button */}
         <div data-aos="fade-left" data-aos-duration="3000" data-aos-delay="1000" className="flex justify-end my-8">
-          <button onClick={() => { navigate('/ApplicationForm'); window.scroll(0, 0) }} className='p-3 sm:p-4 rounded-4xl bg-[var(--Yellow)] text-sm sm:text-base'>
+          <button onClick={() => { navigate('/bookTest'); window.scroll(0, 0) }} className='p-3 sm:p-4 rounded-4xl bg-[var(--Yellow)] text-sm sm:text-base'>
             {t('bookFreeTrial')}
           </button>
         </div>

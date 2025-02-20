@@ -7,6 +7,7 @@ import { GiPapers, GiWallet } from 'react-icons/gi';
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLogout } from 'react-icons/md';
 import { useAdmin } from '../../AdminContext';
+import { PiBooksBold } from 'react-icons/pi';
 
 function Nav() {
   const location = useLocation();
@@ -20,8 +21,9 @@ function Nav() {
   }, [setAdmin]);
 
   const menuItems = [
-    { name: 'Dashboard', icon: <RxDashboard />, path: '/dash/' },
+    { name: 'Dashboard', icon: <RxDashboard />, path: '/dash/'},
     { name: 'Student Booking', icon: <RxCalendar />, path: '/dash/booking' },
+    { name: 'Courses & Plans', icon: <PiBooksBold />, path: '/dash/courses' },
     { name: 'Requests', icon: <GiPapers />, path: '/dash/requests' },
     { name: 'Payment', icon: <GiWallet />, path: '/dash/payment' },
     { name: 'Settings', icon: <CiSettings />, path: '/dash/settings' },

@@ -5,13 +5,14 @@ import { query, where, getDocs } from 'firebase/firestore';
 import Swal from 'sweetalert2';
 import newph from '../../assets/ins2.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Modal } from 'react-responsive-modal';
 
 function EditAdmin() {
  const location = useLocation();
  const navigate = useNavigate();
 
  const [showPassword, setShowPassword] = useState(false);
-
+ const [openSuccessModal, setOpenSuccessModal] = useState(false);
  const [formData, setFormData] = useState({ Name: '', Email: '', Phone: '', Password: '', Previlige: '' });
 
  useEffect(() => {
@@ -52,7 +53,7 @@ function EditAdmin() {
    });
    return true;
   }
-  return false; 
+  return false;
  };
 
  const handleUpdate = async (e) => {
@@ -64,7 +65,7 @@ function EditAdmin() {
   }
 
   const conflict = await checkIfExists();
-  if (conflict) return; 
+  if (conflict) return;
 
   try {
    const adminRef = doc(db, 'Admins', location.state.adminDetails.id);
@@ -77,15 +78,13 @@ function EditAdmin() {
     Previlige: formData.Previlige,
    });
 
-   navigate('/dash/settings');
+   setOpenSuccessModal(true);
+   setTimeout(() => {
+    navigate('/dash/settings');
+    setOpenSuccessModal(false);
+   }, 2000);
 
-   Swal.fire({
-    showCloseButton: true,
-    icon:'success',
-    text: 'Successfully Updated',
-    timer: 1000,
-    showConfirmButton: false,
-   });
+
    window.scroll(0, 0);
   } catch (error) {
    console.error('Error updating admin: ', error);
@@ -146,6 +145,11 @@ function EditAdmin() {
      </button>
     </article>
    </section>
+
+   {/* Success Modal */}
+   <Modal open={openSuccessModal} onClose={() => setOpenSuccessModal(false)} center classNames={{ modal: "rounded-2xl",closeIcon: "bg-red-500 text-white" }}>
+    <h2 className="my-12">Successfully Edited</h2>
+   </Modal>
   </main>
  );
 }

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { Link } from 'react-router-dom';
-
+import { Link, Navigate } from 'react-router-dom';
+import { useAdmin } from '../../AdminContext';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function HomePage() {
+ const { admin } = useAdmin();
  const dataChart = {
   labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
   datasets: [
@@ -44,7 +45,7 @@ function HomePage() {
    <section className="bg-[var(--Main)] text-white p-10 grid grid-cols-3 rounded-2xl">
     <article className="space-y-5 col-span-1">
      <h1 className="text-2xl font-bold">Dashboard Insights</h1>
-     <p style={{textAlign:'justify'}} className="text-sm">
+     <p style={{ textAlign: 'justify' }} className="text-sm">
       Track the number of students who have taken free placement tests,
       attended free sessions, and enrolled in paid courses.
      </p>
@@ -63,7 +64,7 @@ function HomePage() {
    <section className="grid grid-cols-2 space-x-10 rounded-2xl p-10 border-2 border-[var(--SubTextBorder)]/50">
     <article className="space-y-8 flex flex-col h-full">
      <h1 className="text-3xl font-bold">Monthly Enrollment Trends</h1>
-     <p style={{textAlign:'justify'}}>
+     <p style={{ textAlign: 'justify' }}>
       Analyze student enrollment patterns throughout the year with a clear visual representation. This chart helps track growth, identify peak registration periods, and make data-driven decisions for future course offerings.
      </p>
 
@@ -131,7 +132,7 @@ function HomePage() {
      </table>
     </div>
     <div className="flex px-6 py-0.5 justify-end">
-     <Link className="underline">See more</Link>
+     <Link to='/dash/requests' onClick={()=>window.scroll(0,0)} className="underline">See more</Link>
     </div>
    </section>
   </main>
