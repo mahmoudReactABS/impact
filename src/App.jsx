@@ -22,6 +22,9 @@ import EditAdmin from './pages/dashboard/EditAdmin';
 import Requests from './pages/dashboard/Requests';
 import TimePicker from './pages/dashboard/Time';
 import StudentsBooking from './pages/dashboard/StudentsBooking';
+import CoursesPlans from './pages/dashboard/CoursesPlans';
+import EditCourse from './Components/dashboard/EditCourse';
+import AddCourse from './Components/dashboard/AddCourse';
 
 function App() {
 
@@ -52,6 +55,9 @@ function App() {
           <Route path="requests" element={<Requests />} />
           <Route path="time" element={<TimePicker />} />
           <Route path="booking" element={<StudentsBooking />} />
+          <Route path="courses" element={<CoursesPlans />} />
+          <Route path="courses/editcourse" element={<EditCourse />} />
+          <Route path="courses/addcourse" element={<AddCourse />} />
         </Route>
 
         <Route path="/dash/login" element={<LoginLayout />}>
