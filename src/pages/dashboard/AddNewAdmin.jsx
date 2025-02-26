@@ -104,8 +104,11 @@ function AddNewAdmin() {
      </article>
     </form>
 
-    <article className="flex justify-end w-full">
-     <button onClick={AddAdmin} type="submit" className="py-3 px-20 text-xl rounded-2xl bg-[var(--Yellow)]">
+    <article className="flex justify-between mt-16 items-center text-xl">
+     <button onClick={() => navigate('/dash/settings')} className="py-3 px-20 text-xl rounded-2xl border-2 border-[var(--Yellow)]" >
+      Cancel
+     </button>
+     <button onClick={AddAdmin} className="py-3 px-20 text-xl rounded-2xl bg-[var(--Yellow)]">
       Save
      </button>
     </article>

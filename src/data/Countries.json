@@ -1,38 +1,94 @@
- [
-  { "nameEn": "Algeria", "nameAr": "الجزائر" },
-  { "nameEn": "Angola", "nameAr": "أنغولا" },
-  { "nameEn": "Bahrain", "nameAr": "البحرين" },
-  { "nameEn": "Botswana", "nameAr": "بوتسوانا" },
-  { "nameEn": "Côte d'Ivoire", "nameAr": "كوت ديفوار" },
-  { "nameEn": "Congo", "nameAr": "الكونغو" },
-  { "nameEn": "Egypt", "nameAr": "مصر" },
-  { "nameEn": "Ethiopia", "nameAr": "أثيوبيا" },
-  { "nameEn": "Ghana", "nameAr": "غانا" },
-  { "nameEn": "Jordan", "nameAr": "الأردن" },
-  { "nameEn": "Kenya", "nameAr": "كينيا" },
-  { "nameEn": "Kuwait", "nameAr": "الكويت" },
-  { "nameEn": "Lebanon", "nameAr": "لبنان" },
-  { "nameEn": "Libya", "nameAr": "ليبيا" },
-  { "nameEn": "Madagascar", "nameAr": "مدغشقر" },
-  { "nameEn": "Mauritius", "nameAr": "موريشيوس" },
-  { "nameEn": "Mali", "nameAr": "مالي" },
-  { "nameEn": "Morocco", "nameAr": "المغرب" },
-  { "nameEn": "Nigeria", "nameAr": "نيجيريا" },
-  { "nameEn": "Oman", "nameAr": "عمان" },
-  { "nameEn": "Palestine", "nameAr": "فلسطين" },
-  { "nameEn": "Qatar", "nameAr": "قطر" },
-  { "nameEn": "Rwanda", "nameAr": "رواندا" },
-  { "nameEn": "Saudi Arabia", "nameAr": "السعودية" },
-  { "nameEn": "Senegal", "nameAr": "السنغال" },
-  { "nameEn": "South Africa", "nameAr": "جنوب أفريقيا" },
-  { "nameEn": "Sudan", "nameAr": "السودان" },
-  { "nameEn": "Syria", "nameAr": "سوريا" },
-  { "nameEn": "Tanzania", "nameAr": "تنزانيا" },
-  { "nameEn": "Tunisia", "nameAr": "تونس" },
-  { "nameEn": "Turkey", "nameAr": "تركيا" },
-  { "nameEn": "United Arab Emirates", "nameAr": "الإمارات" },
-  { "nameEn": "Uganda", "nameAr": "أوغندا" },
-  { "nameEn": "Yemen", "nameAr": "اليمن" },
-  { "nameEn": "Zambia", "nameAr": "زامبيا" },
-  { "nameEn": "Zimbabwe", "nameAr": "زيمبابوي" }
- ]
+[
+ {
+  "nameEn": "Algeria",
+  "nameAr": "الجزائر"
+ },
+ {
+  "nameEn": "Bahrain",
+  "nameAr": "البحرين"
+ },
+ {
+  "nameEn": "Egypt",
+  "nameAr": "مصر"
+ },
+ {
+  "nameEn": "Jordan",
+  "nameAr": "الأردن"
+ },
+ {
+  "nameEn": "Kuwait",
+  "nameAr": "الكويت"
+ },
+ {
+  "nameEn": "Libya",
+  "nameAr": "ليبيا"
+ },
+ {
+  "nameEn": "Morocco",
+  "nameAr": "المغرب"
+ },
+ {
+  "nameEn": "Oman",
+  "nameAr": "عمان"
+ },
+ {
+  "nameEn": "Qatar",
+  "nameAr": "قطر"
+ },
+ {
+  "nameEn": "Saudi Arabia",
+  "nameAr": "السعودية"
+ },
+ {
+  "nameEn": "Tunisia",
+  "nameAr": "تونس"
+ },
+ {
+  "nameEn": "Turkey",
+  "nameAr": "تركيا"
+ },
+ {
+  "nameEn": "United Arab Emirates",
+  "nameAr": "الإمارات"
+ },
+ {
+  "nameEn": "Canada",
+  "nameAr": "كندا"
+ },
+ {
+  "nameEn": "Spain",
+  "nameAr": "إسبانيا"
+ },
+ {
+  "nameEn": "France",
+  "nameAr": "فرنسا"
+ },
+ {
+  "nameEn": "Italy",
+  "nameAr": "إيطاليا"
+ },
+ {
+  "nameEn": "United Kingdom",
+  "nameAr": "بريطانيا"
+ },
+ {
+  "nameEn": "Belgium",
+  "nameAr": "بلجيكا"
+ },
+ {
+  "nameEn": "Netherlands",
+  "nameAr": "هولندا"
+ },
+ {
+  "nameEn": "Greece",
+  "nameAr": "اليونان"
+ },
+ {
+  "nameEn": "Cyprus",
+  "nameAr": "قبرص"
+ },
+ {
+  "nameEn": "Malta",
+  "nameAr": "مالطا"
+ }
+]

@@ -149,7 +149,7 @@ const FreeTest = () => {
             onClick={() => { window.history.back(); window.scroll(0, 0); }}>
             {t('back')}
           </button>
-          <button onclick={handleSubmit} data-aos="fade-up-left" type="submit" className="p-4 px-8 rounded-4xl bg-[var(--Yellow)]">
+          <button onClick={handleSubmit} data-aos="fade-up-left" type="submit" className="p-4 px-8 rounded-4xl bg-[var(--Yellow)]">
             {t('submit')}
           </button>
         </div>

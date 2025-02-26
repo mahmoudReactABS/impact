@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/Logo White 1.png';
-import user from '../../assets/ins7.png';
 import { RxCalendar, RxDashboard } from 'react-icons/rx';
 import { GiPapers, GiWallet } from 'react-icons/gi';
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLogout } from 'react-icons/md';
 import { useAdmin } from '../../AdminContext';
 import { PiBooksBold } from 'react-icons/pi';
+import { MdPersonOutline } from "react-icons/md";
+
+import { useAuth } from '../../AuthContext';
 
 function Nav() {
   const location = useLocation();
   const { admin, setAdmin } = useAdmin();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const storedAdmin = localStorage.getItem('admin');
@@ -30,6 +33,7 @@ function Nav() {
   ];
 
   const handleLogout = () => {
+    logout();
     localStorage.removeItem('admin');
     setAdmin(null);
   };
@@ -46,9 +50,9 @@ function Nav() {
       <img src={logo} className='w-48' alt='Logo' />
 
       {/* Display admin data */}
-      <section className='flex items-center gap-5 text-white'>
+      <section className='flex items-center justify-start gap-5 text-white'>
         <article className='w-20'>
-          <img src={user} alt='User' />
+          <MdPersonOutline className='w-20 p-2 h-full border-4 rounded-full'  />
         </article>
         <article>
           <h1 className='text-2xl'>{admin?.Name}</h1>

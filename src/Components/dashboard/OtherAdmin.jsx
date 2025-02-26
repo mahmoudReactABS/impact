@@ -24,12 +24,7 @@ const OtherAdmin = (props) => {
  };
 
  return (
-  <article className="border-2 border-[var(--SubTextBorder)] grid grid-cols-8 p-4 rounded-2xl">
-   <section className="col-span-1">
-    <img src={user} className="h-20 w-20" alt="Admin Profile" />
-   </section>
-
-   <section className="col-span-7 py-2 px-10 grid grid-cols-4">
+  <article className="border-2 border-[var(--SubTextBorder)] grid grid-cols-4 p-4 rounded-2xl">
     <div className="w-full space-y-2 flex-col items-center">
      <h4 className="text-md text-[var(--SubText)]">Name</h4>
      <p className="text-xl">{info.Name}</p>
@@ -51,7 +46,6 @@ const OtherAdmin = (props) => {
       Delete
      </button>
     </div>
-   </section>
 
    <Modal open={openModal} onClose={() => setOpenModal(false)} center classNames={{ modal: "rounded-2xl" }}>
     <h2 className="my-12">This action cannot be undone. Are you sure you want to delete?</h2>

@@ -8,12 +8,7 @@ function AdminProfile() {
  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
  return (
-  <article className='grid grid-cols-8 p-8 gap-x-12 rounded-3xl bg-[var(--Light)]'>
-   <sec className="col-span-1 flex items-center justify-center">
-    <img src={user} className='h-28 w-full' alt="User" />
-   </sec>
-
-   <sec className="col-span-7 grid grid-cols-3 space-y-5">
+  <article className='grid grid-cols-3 p-8 gap-x-12 gap-y-6 rounded-3xl bg-[var(--Light)]'>
     <div className='w-full space-y-2'>
      <h4 className='text-md text-[var(--SubText)]'>Name</h4>
      <p className='text-2xl'>{admin.Name}</p>
@@ -39,7 +34,6 @@ function AdminProfile() {
       </button>
      </div>
     </div>
-   </sec>
   </article>
  );
 }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import photo from '../../assets/login.png';
 import { db, collection } from '../../data/firebaseConfig';
 import { query, where, getDocs } from 'firebase/firestore';
+import { useAuth } from '../../AuthContext';
 import Swal from 'sweetalert2';
 import { useAdmin } from '../../AdminContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -11,13 +12,14 @@ function Login() {
   const [formData, setFormData] = useState({ Email: '', Password: '' }),
     [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
   const { setAdmin } = useAdmin();
 
   useEffect(() => {
     const storedAdmin = localStorage.getItem('admin');
     if (storedAdmin) {
       setAdmin(JSON.parse(storedAdmin));
-      navigate('/dash/'); 
+      navigate('/dash/');
     }
   }, [setAdmin, navigate]);
 
@@ -63,8 +65,9 @@ function Login() {
         localStorage.setItem('admin', JSON.stringify(adminData));
 
         setAdmin(adminData);
+        login();
         window.scroll(0, 0);
-        navigate('/dash');
+        navigate('/dash/');
       }
     } catch (e) {
       Swal.fire({

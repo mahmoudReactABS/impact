@@ -1,17 +1,15 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAdmin } from './AdminContext';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
-const ProtectedRoute = () => {
-  const { login } = useAdmin(); // Get the login state from context
+const ProtectedRoute = ({ element }) => {
+ const { isAuthenticated } = useAuth();
 
-  if (!login) {
-    // Redirect to the login page if not logged in
-    return <Navigate to="/dash/login" replace />;
-  }
+ if (!isAuthenticated) {
+  return <Navigate to="/dash/login" />;
+ }
 
-  // Render the child routes if logged in
-  return <Outlet />;
+ return element;
 };
 
 export default ProtectedRoute;

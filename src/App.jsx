@@ -26,45 +26,49 @@ import CoursesPlans from './pages/dashboard/CoursesPlans';
 import EditCourse from './Components/dashboard/EditCourse';
 import AddCourse from './Components/dashboard/AddCourse';
 
+import { AuthProvider } from './AuthContext'; 
+import ProtectedRoute from './ProtectedRoute';
+
 function App() {
-
   return (
-    <Router>
-      <Routes>
-        {/* Main layout for general pages */}
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<AboutUs />} />
-          <Route path="courses" element={<Courses />} />
-          <Route path="courses/:courseName" element={<CourseDetails />} />
-        </Route>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Main layout for general pages */}
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<AboutUs />} />
+            <Route path="courses" element={<Courses />} />
+            <Route path="courses/:courseName" element={<CourseDetails />} />
+          </Route>
 
-        {/* Checkout page with a different layout */}
-        <Route path="/" element={<SubLayout />}>
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="bookTest" element={<FreeTest />} />
-          <Route path="ApplicationForm" element={<AppForm />} />
-        </Route>
+          {/* Checkout page with a different layout */}
+          <Route path="/" element={<SubLayout />}>
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="bookTest" element={<FreeTest />} />
+            <Route path="ApplicationForm" element={<AppForm />} />
+          </Route>
 
-        {/* Dashboard layout */}
-        <Route path="/dash" element={<DashLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="settings/AddNew" element={<AddNewAdmin />} />
-          <Route path="settings/UpdateAdmin" element={<EditAdmin />} />
-          <Route path="requests" element={<Requests />} />
-          <Route path="time" element={<TimePicker />} />
-          <Route path="booking" element={<StudentsBooking />} />
-          <Route path="courses" element={<CoursesPlans />} />
-          <Route path="courses/editcourse" element={<EditCourse />} />
-          <Route path="courses/addcourse" element={<AddCourse />} />
-        </Route>
+          {/* Dashboard layout */}
+          <Route path="/dash" element={<DashLayout />}>
+            <Route index element={<ProtectedRoute element={<HomePage />} />} />
+            <Route path="settings" element={<ProtectedRoute element={<Settings />} />} />
+            <Route path="settings/AddNew" element={<ProtectedRoute element={<AddNewAdmin />} />} />
+            <Route path="settings/UpdateAdmin" element={<ProtectedRoute element={<EditAdmin />} />} />
+            <Route path="requests" element={<ProtectedRoute element={<Requests />} />} />
+            <Route path="time" element={<ProtectedRoute element={<TimePicker />} />} />
+            <Route path="booking" element={<ProtectedRoute element={<StudentsBooking />} />} />
+            <Route path="courses" element={<ProtectedRoute element={<CoursesPlans />} />} />
+            <Route path="courses/editcourse" element={<ProtectedRoute element={<EditCourse />} />} />
+            <Route path="courses/addcourse" element={<ProtectedRoute element={<AddCourse />} />} />
+          </Route>
 
-        <Route path="/dash/login" element={<LoginLayout />}>
-          <Route index element={<Login />} />
-        </Route>
-      </Routes>
-    </Router>
+          <Route path="/dash/login" element={<LoginLayout />}>
+            <Route index element={<Login />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

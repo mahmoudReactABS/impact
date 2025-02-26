@@ -2,48 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Link } from 'react-router-dom';
-import { useAdmin } from '../../AdminContext';
 import { db, collection } from '../../data/firebaseConfig';
 import { query, getDocs } from 'firebase/firestore';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function HomePage() {
- const [freeTest,seetFreeTest]=useState();
- const [freeSession,seetFreeSession]=useState();
+ const [freeTest, setFreeTest] = useState([]);
+ const [freeSession, setFreeSession] = useState([]);
+ const [requests, setRequests] = useState([]);
 
-  useEffect(() => {
-   const fetchRequests = async () => {
-    try {
-     const q = query(collection(db, 'Free Test'));
-     const querySnapshot = await getDocs(q);
- 
-     const req = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-     }));
-     seetFreeTest(req.length);
-    } catch (e) {
-     console.error('Error fetching Requests: ', e);
-    }
+ const fetchData = async (collectionName, setterFunction) => {
+  try {
+   const q = query(collection(db, collectionName));
+   const querySnapshot = await getDocs(q);
+   const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+   setterFunction(data);
+  } catch (e) {
+   console.error(`Error fetching data from ${collectionName}: `, e);
+  }
+ };
 
-    try {
-     const q = query(collection(db, 'Free Session'));
-     const querySnapshot = await getDocs(q);
- 
-     const req = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-     }));
-     seetFreeSession(req.length);
-    } catch (e) {
-     console.error('Error fetching Requests: ', e);
-    }
-   };
-   fetchRequests();
-  }, []);
-
- const { admin } = useAdmin();
+ useEffect(() => {
+  fetchData('Free Test', setFreeTest);
+  fetchData('Free Session', setFreeSession);
+  fetchData('Requests', setRequests);
+ }, []);
 
  const dataChart = {
   labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
@@ -72,10 +56,10 @@ function HomePage() {
  };
 
  const details = [
-  { number: freeTest, description: "Free Test" },
-  { number: freeSession, description: "Free Session" },
-  { number: "350", description: "Total Student" },
-  { number: "350", description: "Paid Courses" },
+  { number: freeTest.length, description: 'Free Test' },
+  { number: freeSession.length, description: 'Free Session' },
+  { number: '350', description: 'Total Student' },
+  { number: '350', description: 'Paid Courses' },
  ];
 
  return (
@@ -112,7 +96,7 @@ function HomePage() {
      </div>
     </article>
 
-    <article className=''>
+    <article className="">
      <div style={{ height: '350px' }}>
       <Bar data={dataChart} options={options} />
      </div>
@@ -136,41 +120,25 @@ function HomePage() {
       </thead>
 
       <tbody>
-       <tr className="hover:bg-gray-100">
-        <td className="p-4">Sayed</td>
-        <td className="p-4">1234@gmail.com</td>
-        <td className="p-4">0123456789</td>
-        <td className="p-4">Egypt</td>
-        <td className="p-4">Free Session</td>
-        <td className="p-4">
-         <button className="underline text-[var(--Yellow)]">select date</button>
-        </td>
-       </tr>
-       <tr className="hover:bg-gray-100">
-        <td className="p-4">John</td>
-        <td className="p-4">john.doe@gmail.com</td>
-        <td className="p-4">0987654321</td>
-        <td className="p-4">USA</td>
-        <td className="p-4">Free Session</td>
-        <td className="p-4">
-         <button className="underline text-[var(--Yellow)]">select date</button>
-        </td>
-       </tr>
-       <tr className="hover:bg-gray-100">
-        <td className="p-4">Maria</td>
-        <td className="p-4">maria@gmail.com</td>
-        <td className="p-4">0555555555</td>
-        <td className="p-4">Spain</td>
-        <td className="p-4">Free Session</td>
-        <td className="p-4">
-         <button className="underline text-[var(--Yellow)]">select date</button>
-        </td>
-       </tr>
+       {requests.slice(0,3).map((req) => (
+        <tr key={req.id} className="hover:bg-gray-100">
+         <td className="p-4">{req.name}</td>
+         <td className="p-4">{req.email}</td>
+         <td className="p-4">{req.phoneNumber}</td>
+         <td className="p-4">{req.country}</td>
+         <td className="p-4">{req.option}</td>
+         <td className="p-4">
+          <Link className="underline text-[var(--Yellow)]" to="/dash/requests" onClick={() => window.scroll(0, 0)}>select date</Link>
+         </td>
+        </tr>
+       ))}
       </tbody>
      </table>
     </div>
     <div className="flex px-6 py-0.5 justify-end">
-     <Link to='/dash/requests' onClick={() => window.scroll(0, 0)} className="underline">See more</Link>
+     <Link to="/dash/requests" onClick={() => window.scroll(0, 0)} className="underline">
+      See more
+     </Link>
     </div>
    </section>
   </main>

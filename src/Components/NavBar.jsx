@@ -31,7 +31,7 @@ function Navbar() {
      </div>
      <div className="md:hidden flex items-center me-20">
       <NavLink to="/">
-       <img src={logo2} alt="logo" className="h-10 w-full" />
+       <img src={logo2} alt="logo" className="h-10 w-[45%]" />
       </NavLink>
      </div>
 
