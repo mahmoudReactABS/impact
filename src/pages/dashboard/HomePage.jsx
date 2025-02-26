@@ -1,12 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAdmin } from '../../AdminContext';
+import { db, collection } from '../../data/firebaseConfig';
+import { query, getDocs } from 'firebase/firestore';
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function HomePage() {
+ const [freeTest,seetFreeTest]=useState();
+ const [freeSession,seetFreeSession]=useState();
+
+  useEffect(() => {
+   const fetchRequests = async () => {
+    try {
+     const q = query(collection(db, 'Free Test'));
+     const querySnapshot = await getDocs(q);
+ 
+     const req = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+     }));
+     seetFreeTest(req.length);
+    } catch (e) {
+     console.error('Error fetching Requests: ', e);
+    }
+
+    try {
+     const q = query(collection(db, 'Free Session'));
+     const querySnapshot = await getDocs(q);
+ 
+     const req = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+     }));
+     seetFreeSession(req.length);
+    } catch (e) {
+     console.error('Error fetching Requests: ', e);
+    }
+   };
+   fetchRequests();
+  }, []);
+
  const { admin } = useAdmin();
+
  const dataChart = {
   labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
   datasets: [
@@ -34,8 +72,8 @@ function HomePage() {
  };
 
  const details = [
-  { number: "50", description: "Free Test" },
-  { number: "350", description: "Free Session" },
+  { number: freeTest, description: "Free Test" },
+  { number: freeSession, description: "Free Session" },
   { number: "350", description: "Total Student" },
   { number: "350", description: "Paid Courses" },
  ];
@@ -132,7 +170,7 @@ function HomePage() {
      </table>
     </div>
     <div className="flex px-6 py-0.5 justify-end">
-     <Link to='/dash/requests' onClick={()=>window.scroll(0,0)} className="underline">See more</Link>
+     <Link to='/dash/requests' onClick={() => window.scroll(0, 0)} className="underline">See more</Link>
     </div>
    </section>
   </main>

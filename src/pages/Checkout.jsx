@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import visa from '../assets/visa.png';
 import mastercard from '../assets/Mastercard.png';
 import pp from '../assets/pp.png';
-import data from '../data/Courses.json';
+import { db } from '../data/firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
 
 function Checkout() {
   const { t, i18n } = useTranslation();
@@ -14,21 +15,45 @@ function Checkout() {
   const formData = location.state?.formData;
   const currentLanguage = i18n.language;
 
-  // Debugging: Log formData and data
-  console.log('formData:', formData);
-
-  // Fallback for course if formData or data is undefined
-  const course = data?.[formData?.option]?.[currentLanguage] || {Options: [{duration: 'N/A',Hours: 'N/A',priceAfter: 'N/A',}],
-  };
-
-  // Debugging: Log course
-  console.log('course:', course);
+  const [course, setCourse] = useState({
+    Options: [{ duration: 'N/A', Hours: 'N/A', priceAfter: 'N/A' }],
+  });
 
   const [cardholderName, setCardholderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [ccv, setCcv] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
+
+  // Fetch course data from Firestore
+  useEffect(() => {
+    const fetchCourseData = async () => {
+      if (!formData?.option) return;
+
+      try {
+        const courseRef = doc(db, 'courses', formData.option); // Reference to the course document
+        const courseSnap = await getDoc(courseRef);
+
+        if (courseSnap.exists()) {
+          const courseData = courseSnap.data();
+          setCourse(courseData[currentLanguage] || courseData.en); // Fallback to English if current language data is missing
+        } else {
+          console.error('Course not found in Firestore');
+        }
+      } catch (error) {
+        console.error('Error fetching course data:', error);
+        Swal.fire({
+          title: t('error'),
+          text: t('errorFetchingCourseData'),
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } finally { }
+    };
+
+    fetchCourseData();
+  }, [formData, currentLanguage, t]);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -135,25 +160,22 @@ function Checkout() {
           <h1 className="text-2xl font-bold">{t('chooseYourOption')}</h1>
           <div className="grid grid-cols-6 md:grid-cols-8 gap-6">
             <div
-              className={`rounded-lg h-full col-span-2 p-3 cursor-pointer ${
-                selectedOption === 'visa' ? 'bg-[#0D5CAE4D]' : ''
-              } flex justify-center items-center`}
+              className={`rounded-lg h-full col-span-2 p-3 cursor-pointer ${selectedOption === 'visa' ? 'bg-[#0D5CAE4D]' : ''
+                } flex justify-center items-center`}
               onClick={() => handleOptionClick('visa')}
             >
               <img src={visa} alt="Visa" className="h-full w-full drop-shadow-xl" />
             </div>
             <div
-              className={`rounded-lg h-full col-span-2 p-3 cursor-pointer ${
-                selectedOption === 'mastercard' ? 'bg-[#0D5CAE4D]' : ''
-              } flex justify-center items-center`}
+              className={`rounded-lg h-full col-span-2 p-3 cursor-pointer ${selectedOption === 'mastercard' ? 'bg-[#0D5CAE4D]' : ''
+                } flex justify-center items-center`}
               onClick={() => handleOptionClick('mastercard')}
             >
               <img src={mastercard} alt="Mastercard" className="h-full w-full drop-shadow-xl" />
             </div>
             <div
-              className={`rounded-lg h-full col-span-2 p-3 cursor-pointer ${
-                selectedOption === 'pp' ? 'bg-[#0D5CAE4D]' : ''
-              } flex justify-center items-center`}
+              className={`rounded-lg h-full col-span-2 p-3 cursor-pointer ${selectedOption === 'pp' ? 'bg-[#0D5CAE4D]' : ''
+                } flex justify-center items-center`}
               onClick={() => handleOptionClick('pp')}
             >
               <img src={pp} alt="PayPal" className="h-full w-full drop-shadow-xl" />
