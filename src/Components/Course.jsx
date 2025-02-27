@@ -24,10 +24,7 @@ function Course(props) {
      <p>{t('liveSession.schedule')}</p>
     </div>
 
-    <button
-     onClick={() => { navigate(`/courses/${props.direc}`); window.scroll(0, 0) }}
-     className='bg-white p-3 text-black rounded-4xl w-full'
-    >
+    <button onClick={() => { navigate(`/courses/${props.direc}`); window.scroll(0, 0) }} className='bg-white p-3 text-black rounded-4xl w-full'>
      {t('liveSession.moreDetails')}
     </button>
    </div>

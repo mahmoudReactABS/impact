@@ -26,12 +26,12 @@ function Navbar() {
      {/* Logo */}
      <div className="hidden md:flex items-center me-20">
       <NavLink to="/">
-       <img src={logo} alt="logo" className="h-10 w-full" />
+       <img src={logo} alt="logo" className="h-10" />
       </NavLink>
      </div>
      <div className="md:hidden flex items-center me-20">
       <NavLink to="/">
-       <img src={logo2} alt="logo" className="h-10 w-[50%]" />
+       <img src={logo2} alt="logo" className="h-10" />
       </NavLink>
      </div>
 

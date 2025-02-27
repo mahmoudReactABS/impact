@@ -20,6 +20,8 @@ const FreeTest = () => {
 
   const textAlignment = i18n.language === 'ar' ? 'text-right' : 'text-left';
   const countries = cntris;
+  const countriesAr = countries.map((cnt) => cnt.nameAr);
+  const countriesEn = countries.map((cnt) => cnt.nameEn);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -115,18 +117,14 @@ const FreeTest = () => {
         </div>
 
         {/* Country Selection */}
-        <div data-aos="fade-left" data-aos-duration="2000" className="space-y-4">
+        <div className="space-y-4">
           <label className="block text-lg font-bold text-black">{t('country')}</label>
-          <select
-            name="country" value={formData.country} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
+          <select name="country" value={formData.country} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
             <option disabled value="">
               {t('chooseCountry')}
             </option>
-            {countries.map((country, index) => (
-              <option key={index} value={country.nameEn}>
-                {i18n.language === 'ar' ? country.nameAr : country.nameEn}
-              </option>
-            ))}
+            
+              {i18n.language === 'ar' ? countriesAr.sort().map(cntry=><option>{cntry}</option>) : countriesEn.sort().map(cntry=><option>{cntry}</option>)}
           </select>
         </div>
 
@@ -143,16 +141,16 @@ const FreeTest = () => {
         </div>
       </form>
 
-        {/* Submit and Back buttons */}
-        <div className="flex flex-col gap-y-6 items-end md:flex-row md:justify-between mt-12 col-span-1 md:col-span-2">
-          <button data-aos="fade-up-right" type="button" className="p-4 px-8 rounded-4xl border-2 border-[var(--Yellow)]"
-            onClick={() => { window.history.back(); window.scroll(0, 0); }}>
-            {t('back')}
-          </button>
-          <button onClick={handleSubmit} data-aos="fade-up-left" type="submit" className="p-4 px-8 rounded-4xl bg-[var(--Yellow)]">
-            {t('submit')}
-          </button>
-        </div>
+      {/* Submit and Back buttons */}
+      <div className="flex flex-col gap-y-6 items-end md:flex-row md:justify-between mt-12 col-span-1 md:col-span-2">
+        <button data-aos="fade-up-right" type="button" className="p-4 px-8 rounded-4xl border-2 border-[var(--Yellow)]"
+          onClick={() => { window.history.back(); window.scroll(0, 0); }}>
+          {t('back')}
+        </button>
+        <button onClick={handleSubmit} data-aos="fade-up-left" type="submit" className="p-4 px-8 rounded-4xl bg-[var(--Yellow)]">
+          {t('submit')}
+        </button>
+      </div>
     </section>
   );
 };

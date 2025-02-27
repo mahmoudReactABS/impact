@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
-
 import Swal from 'sweetalert2';
-
 import cntris from '../data/Countries.json';
+import { db } from '../data/firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
 
 const AppForm = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const [formData, setFormData] = useState({ name: '', email: '', courseCategory: '', phoneNumber: '', country: '', option: '', takenTest: false, type: '' });
+  const [course, setCourse] = useState([]);
+  const [options, setOptions] = useState();
+  const currentLanguage = i18n.language;
 
   useEffect(() => {
     if (location.state) {
@@ -19,9 +22,37 @@ const AppForm = () => {
         courseCategory: location.state.courseCategory || '',
         option: location.state.option || '',
         type: location.state.levelno || '',
+        number: location.state.number || '',
       }));
     }
   }, [location.state]);
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const docRef = doc(db, "courses", formData.option);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const courseData = docSnap.data()?.[currentLanguage];
+
+          if (courseData) {
+            const filteredCourse = courseData.Options.filter((data) => data.id === formData.number);
+            setCourse(filteredCourse);
+            setOptions(courseData.Options.map(opt => opt.levelno));
+          } else {
+            console.log('No options data found.');
+          }
+        } else {
+          console.error("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching course: ", error);
+      }
+    };
+
+    fetchCourse();
+  }, [formData.option, currentLanguage]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -31,6 +62,8 @@ const AppForm = () => {
   const textAlignment = i18n.language === 'ar' ? 'text-right' : 'text-left';
 
   const countries = cntris;
+  const countriesAr = countries.map((cnt) => cnt.nameAr);
+  const countriesEn = countries.map((cnt) => cnt.nameEn);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +80,6 @@ const AppForm = () => {
       return;
     }
 
-    console.log(formData);
     navigate('/checkout', { state: { formData } });
     window.scroll(0, 0);
   };
@@ -88,8 +120,7 @@ const AppForm = () => {
               <option disabled value="">
                 {t('type')}
               </option>
-              <option value="1 Level">1 Level</option>
-              <option value="3 Levels">3 Levels</option>
+              {options?.map(opt => <option value={opt}>{opt}</option>)}
             </select>
           </div>
         </article>
@@ -108,11 +139,8 @@ const AppForm = () => {
               <option disabled value="">
                 {t('chooseCountry')}
               </option>
-              {countries.map((country, index) => (
-                <option key={index} value={country.nameEn}>
-                  {i18n.language === 'ar' ? country.nameAr : country.nameEn}
-                </option>
-              ))}
+              {i18n.language === 'ar' ? countriesAr.sort().map((cntry, index) => <option key={index} value={cntry}>{cntry}</option>) :
+                countriesEn.sort().map((cntry, index) => <option key={index} value={cntry}>{cntry}</option>)}
             </select>
           </div>
 

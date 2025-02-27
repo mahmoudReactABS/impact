@@ -32,7 +32,7 @@ function Option(props) {
         <Link
           to='/ApplicationForm'
           onClick={() => window.scroll(0, 0)}
-          state={{ courseCategory: props.courseCategory, option: props.option, levelno: props.levelno, priceAfter: props.priceAfter, duration: props.duration, totalTime: props.totalTime, sessionPerWeek: props.sessionPerWeek, Hours: props.Hours, scheduleType: props.scheduleType }}
+          state={{number:props.number, courseCategory: props.courseCategory, option: props.option, levelno: props.levelno, priceAfter: props.priceAfter, duration: props.duration, totalTime: props.totalTime, sessionPerWeek: props.sessionPerWeek, Hours: props.Hours, scheduleType: props.scheduleType }}
           className='bg-white p-3 text-black rounded-3xl w-full block'>
           {t('enrll')}
         </Link>

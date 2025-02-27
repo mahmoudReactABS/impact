@@ -29,7 +29,6 @@ function CourseDetails() {
       } catch (error) {
         console.error("Error fetching course: ", error);
       } finally {
-        setLoading(false);
       }
     };
 
