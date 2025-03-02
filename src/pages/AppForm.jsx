@@ -10,10 +10,16 @@ const AppForm = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const [formData, setFormData] = useState({ name: '', email: '', courseCategory: '', phoneNumber: '', country: '', option: '', takenTest: false, type: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', courseCategory: '', phoneNumber: '', country: '', option: '', takenTest: false, type: '', priceAfter: '' });
   const [course, setCourse] = useState([]);
   const [options, setOptions] = useState();
+
   const currentLanguage = i18n.language;
+  const textAlignment = i18n.language === 'ar' ? 'text-right' : 'text-left';
+
+  const countries = cntris;
+  const countriesAr = countries.map((cnt) => cnt.nameAr);
+  const countriesEn = countries.map((cnt) => cnt.nameEn);
 
   useEffect(() => {
     if (location.state) {
@@ -23,6 +29,7 @@ const AppForm = () => {
         option: location.state.option || '',
         type: location.state.levelno || '',
         number: location.state.number || '',
+        priceAfter: location.state.priceAfter || '',
       }));
     }
   }, [location.state]);
@@ -40,6 +47,7 @@ const AppForm = () => {
             const filteredCourse = courseData.Options.filter((data) => data.id === formData.number);
             setCourse(filteredCourse);
             setOptions(courseData.Options.map(opt => opt.levelno));
+
           } else {
             console.log('No options data found.');
           }
@@ -59,24 +67,11 @@ const AppForm = () => {
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
 
-  const textAlignment = i18n.language === 'ar' ? 'text-right' : 'text-left';
-
-  const countries = cntris;
-  const countriesAr = countries.map((cnt) => cnt.nameAr);
-  const countriesEn = countries.map((cnt) => cnt.nameEn);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check for missing fields
     if (!formData.name || !formData.email || !formData.courseCategory || !formData.phoneNumber || !formData.country || !formData.option || !formData.type) {
-      Swal.fire({
-        icon: 'error',
-        title: t('error'),
-        text: t('pleaseFillAllFields'),
-        timer: 1000,
-        showConfirmButton: false
-      });
+      Swal.fire({ icon: 'error', title: t('error'), text: t('pleaseFillAllFields'), timer: 1000, showConfirmButton: false });
       return;
     }
 
@@ -120,7 +115,7 @@ const AppForm = () => {
               <option disabled value="">
                 {t('type')}
               </option>
-              {options?.map(opt => <option value={opt}>{opt}</option>)}
+              {Array.isArray(options) ? options?.map(opt => <option value={opt}>{opt}</option>) : <option value="1 Level">{t('1level')}</option>}
             </select>
           </div>
         </article>
@@ -141,13 +136,14 @@ const AppForm = () => {
               </option>
               {i18n.language === 'ar' ? countriesAr.sort().map((cntry, index) => <option key={index} value={cntry}>{cntry}</option>) :
                 countriesEn.sort().map((cntry, index) => <option key={index} value={cntry}>{cntry}</option>)}
+              <option disabled value="other">{t('other')}</option>
             </select>
           </div>
 
           {/* Option Selection */}
           <div className="space-y-4">
             <label className="block text-lg font-bold text-black">{t('option')}</label>
-            <select name="option" value={formData.option} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
+            <select name="option" value={formData.courseCategory == 'IELTS' ? "Private" : formData.option} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
               <option disabled value="">
                 {t('option')}
               </option>

@@ -18,13 +18,11 @@ function Nav() {
 
   useEffect(() => {
     const storedAdmin = localStorage.getItem('admin');
-    if (storedAdmin) {
-      setAdmin(JSON.parse(storedAdmin));
-    }
-  }, [setAdmin]);
+    storedAdmin && setAdmin(JSON.parse(storedAdmin));
+  }, [admin]);
 
   const menuItems = [
-    { name: 'Dashboard', icon: <RxDashboard />, path: '/dash/'},
+    { name: 'Dashboard', icon: <RxDashboard />, path: '/dash/' },
     { name: 'Student Booking', icon: <RxCalendar />, path: '/dash/booking' },
     { name: 'Courses & Plans', icon: <PiBooksBold />, path: '/dash/courses' },
     { name: 'Requests', icon: <GiPapers />, path: '/dash/requests' },
@@ -52,7 +50,7 @@ function Nav() {
       {/* Display admin data */}
       <section className='flex items-center justify-start gap-5 text-white'>
         <article className='w-20'>
-          <MdPersonOutline className='w-20 p-2 h-full border-4 rounded-full'  />
+          <MdPersonOutline className='w-20 p-2 h-full border-4 rounded-full' />
         </article>
         <article>
           <h1 className='text-2xl'>{admin?.Name}</h1>
@@ -62,8 +60,8 @@ function Nav() {
 
       <section className='text-white space-y-6'>
         {menuItems.map((item) => (
-          <Link key={item.name} to={item.path} onClick={()=>window.scroll(0,0)}
-          className={`flex gap-3 items-center text-2xl rounded-lg p-5 ${isActive(item.path) ? 'bg-white text-black' : ''}`}>
+          <Link key={item.name} to={item.path} onClick={() => window.scroll(0, 0)}
+            className={`flex gap-3 items-center text-2xl rounded-lg p-5 ${isActive(item.path) ? 'bg-white text-black' : ''}`}>
             {item.icon}
             <p className='text-lg'>{item.name}</p>
           </Link>

@@ -20,13 +20,12 @@ import Settings from './pages/dashboard/Settings';
 import AddNewAdmin from './pages/dashboard/AddNewAdmin';
 import EditAdmin from './pages/dashboard/EditAdmin';
 import Requests from './pages/dashboard/Requests';
-import TimePicker from './pages/dashboard/Time';
 import StudentsBooking from './pages/dashboard/StudentsBooking';
 import CoursesPlans from './pages/dashboard/CoursesPlans';
 import EditCourse from './Components/dashboard/EditCourse';
 import AddCourse from './Components/dashboard/AddCourse';
 
-import { AuthProvider } from './AuthContext'; 
+import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 
 function App() {
@@ -56,7 +55,6 @@ function App() {
             <Route path="settings/AddNew" element={<ProtectedRoute element={<AddNewAdmin />} />} />
             <Route path="settings/UpdateAdmin" element={<ProtectedRoute element={<EditAdmin />} />} />
             <Route path="requests" element={<ProtectedRoute element={<Requests />} />} />
-            <Route path="time" element={<ProtectedRoute element={<TimePicker />} />} />
             <Route path="booking" element={<ProtectedRoute element={<StudentsBooking />} />} />
             <Route path="courses" element={<ProtectedRoute element={<CoursesPlans />} />} />
             <Route path="courses/editcourse" element={<ProtectedRoute element={<EditCourse />} />} />

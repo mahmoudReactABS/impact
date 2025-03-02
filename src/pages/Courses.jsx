@@ -9,7 +9,6 @@ function Courses() {
   const [courses, setCourses] = useState({});
 
   useEffect(() => {
-    // Fetch courses data from Firestore
     const fetchCourses = async () => {
       try {
         const coursesCollection = collection(db, "courses");

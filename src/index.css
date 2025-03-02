@@ -2,6 +2,8 @@
 @import "react-datepicker/dist/react-datepicker.css";
 
 :root {
+  font-family: 'poppins', sans-serif;
+
   /* website colors */
   --GradBg: #004a8f;
   --Main: #0d5cae;

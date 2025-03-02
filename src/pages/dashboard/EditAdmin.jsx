@@ -99,12 +99,9 @@ function EditAdmin() {
    <section className="space-y-6">
     <h2 className="font-semibold text-xl">Update Admin Details</h2>
 
-    <form onSubmit={handleUpdate} className="space-y-4 grid grid-cols-4 border-2 rounded-3xl p-10">
-     <article className="col-span-1 p-10 flex items-center justify-center">
-      <img src={newph} alt="Profile" />
-     </article>
+    <form onSubmit={handleUpdate} className="space-y-4 border-2 rounded-3xl p-10">
 
-     <article className="col-span-3 space-y-3">
+     <article className="space-y-3">
       <div className="space-y-4">
        <h4 className="font-semibold text-lg">Name</h4>
        <input onChange={handleChange} required name="Name" value={formData.Name} placeholder="Ahmed Ali" type="text" className="py-2 px-4 w-full rounded-lg bg-[var(--Input)]" />

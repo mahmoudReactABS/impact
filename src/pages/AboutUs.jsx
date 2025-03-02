@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import meeting from '../assets/meeting.png';
 import group from '../assets/group.png';
 import light from '../assets/light.png';
 import Instructor from '../Components/Instructor';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
-import ins1 from '../assets/ins1.png';
-import ins2 from '../assets/ins2.png';
-import ins3 from '../assets/ins3.png';
-import ins4 from '../assets/ins4.png';
-import ins5 from '../assets/ins5.png';
-import ins6 from '../assets/ins6.png';
-import ins7 from '../assets/ins7.png';
-import ins8 from '../assets/ins8.png';
+import Fatma from '../assets/instructors/Fatma.jpg';
+import Hanady from '../assets/instructors/Hanady.jpg';
+import Haneen from '../assets/instructors/Haneen.jpg';
+import Mazen from '../assets/instructors/Mazen.jpg';
+import Nada from '../assets/instructors/Nada.jpg';
+import Shaza from '../assets/instructors/Shaza.jpg';
+
+import video from '../assets/video.mp4';
+
 import { IoMdArrowBack, IoMdArrowForward } from 'react-icons/io';
 
 function AboutUs() {
@@ -29,14 +29,14 @@ function AboutUs() {
 
  const [sliderRef, instanceRef] = useKeenSlider({
   slides: {
-   perView: 4,
-   spacing: 8,
+   perView: 3,
+   spacing: 0,
   },
   breakpoints: {
    '(max-width: 992px)': {
     slides: {
      perView: 2,
-     spacing: 7,
+     spacing: 5,
     },
    },
    '(max-width: 576px)': {
@@ -96,20 +96,74 @@ function AboutUs() {
  },
   currentFeatures = features[i18n.language];
 
+ const ins = [
+  {
+   "img": Haneen,
+   "name": {
+    "en": "Haneen Dawood",
+    "ar": "حنين داوود"
+   },
+   "years": 4
+  },
+  {
+   "img": Fatma,
+   "name": {
+    "en": "Fatma Hamed",
+    "ar": "فاطمة حامد"
+   },
+   "years": 5
+  },
+  {
+   "img": Nada,
+   "name": {
+    "en": "Nada Fathy",
+    "ar": "ندى فتحي"
+   },
+   "years": 5
+  },
+  {
+   "img": Shaza,
+   "name": {
+    "en": "Shaza Almoselhi",
+    "ar": "شذا المصلحي"
+   },
+   "years": 10
+  },
+  {
+   "img": Mazen,
+   "name": {
+    "en": "Mazen Yasser",
+    "ar": "مازن ياسر"
+   },
+   "years": 4
+  },
+  {
+   "img": Hanady,
+   "name": {
+    "en": "Hanady Gaber",
+    "ar": "هنادي جابر"
+   },
+   "years": 6
+  }
+ ]
+  ;
+
  return (
   <main className='space-y-4 lg:space-y-20'>
    <h1 className='text-xl font-bold md:px-40 px-10'>{t('AboutUs')}</h1>
 
    <section data-aos-duration="1000" data-aos-delay="1000" data-aos="fade-up" className='md:px-40 px-10'>
-    <article className='my-10 space-y-10 md:px-1'>
+    <article className='my-10 space-y-10 md:px-1 w-full'>
      <h1 className='text-xl font-bold'>{t('AboutOur')}</h1>
-     <img className='w-full h-[400px]' src={meeting} alt="meeting" />
+     <div className='flex flex-col items-center'>
+      <video className='h-96 rounded-2xl' controls autoPlay src={video} />
+     </div>
     </article>
    </section>
 
    <section className='relative grid grid-cols-1 md:grid-cols-3'>
     <article data-aos="fade-right" data-aos-duration="1000" className="mb-10 relative z-10 md:m-0">
-     <img src={group} className={`md:top-28 lg:top-12 md:pr-10 hidden px-1 md:block absolute w-full ${show ? 'h-60' : 'h-80'} ${rotation1}`} alt="Meeting" />
+     <img src={group} className={`md:top-28 lg:top-8 md:pr-10 hidden px-1 md:block absolute w-full ${show ? 'h-60' : 'h-80'} ${rotation1}`} alt="Meeting" />
     </article>
 
     <div className="ps-12 lg:ps-20 col-span-2">
@@ -192,30 +246,9 @@ function AboutUs() {
 
     <article className="px-1.5">
      <div ref={sliderRef} className="keen-slider" dir="ltr">
-      <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" className="keen-slider__slide">
-       <Instructor pic={ins1} name={t('aliwael')} />
-      </div>
-      <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="200" className="keen-slider__slide">
-       <Instructor pic={ins2} name={t('aliwael')} />
-      </div>
-      <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="300" className="keen-slider__slide">
-       <Instructor pic={ins3} name={t('aliwael')} />
-      </div>
-      <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400" className="keen-slider__slide">
-       <Instructor pic={ins4} name={t('aliwael')} />
-      </div>
-      <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="500" className="keen-slider__slide">
-       <Instructor pic={ins5} name={t('aliwael')} />
-      </div>
-      <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="600" className="keen-slider__slide">
-       <Instructor pic={ins6} name={t('aliwael')} />
-      </div>
-      <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="700" className="keen-slider__slide">
-       <Instructor pic={ins7} name={t('aliwael')} />
-      </div>
-      <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="800" className="keen-slider__slide">
-       <Instructor pic={ins8} name={t('aliwael')} />
-      </div>
+      {ins.sort((a, b) => b.years - a.years).map(inst => <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" className="keen-slider__slide">
+       <Instructor pic={inst.img} name={inst.name[i18n.language]} years={inst.years} />
+      </div>)}
      </div>
 
      <div className="flex justify-between mt-4 space-x-4" dir="ltr">

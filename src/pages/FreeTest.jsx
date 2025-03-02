@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import cntris from '../data/Countries.json';
 import Swal from 'sweetalert2';
 import { toast } from "react-hot-toast";
@@ -10,8 +10,18 @@ import { query, where, getDocs, or } from 'firebase/firestore';
 const FreeTest = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [formData, setFormData] = useState({ name: '', email: '', phoneNumber: '', country: '', option: '', });
+  const [formData, setFormData] = useState({ name: '', email: '', phoneNumber: '', country: '', option: '' });
+
+  useEffect(() => {
+    if (location.state) {
+      setFormData(prevState => ({
+        ...prevState,
+        option: location.state.option || '',
+      }));
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -120,11 +130,12 @@ const FreeTest = () => {
         <div className="space-y-4">
           <label className="block text-lg font-bold text-black">{t('country')}</label>
           <select name="country" value={formData.country} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
-            <option disabled value="">
-              {t('chooseCountry')}
-            </option>
-            
-              {i18n.language === 'ar' ? countriesAr.sort().map(cntry=><option>{cntry}</option>) : countriesEn.sort().map(cntry=><option>{cntry}</option>)}
+            <option disabled value="">{t('chooseCountry')}</option>
+            {i18n.language === 'ar'
+              ? countriesAr.sort().map((cntry, index) => <option key={index}>{cntry}</option>)
+              : countriesEn.sort().map((cntry, index) => <option key={index}>{cntry}</option>)
+            }
+            <option disabled value="other">{t('other')}</option>
           </select>
         </div>
 
@@ -132,25 +143,22 @@ const FreeTest = () => {
         <div data-aos="fade-right" data-aos-duration="2000" className="space-y-4">
           <label className="block text-lg font-bold text-black">{t('option')}</label>
           <select name="option" value={formData.option} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
-            <option disabled value="">
-              {t('chooseOption')}
-            </option>
+            <option disabled value="">{t('chooseOption')}</option>
             <option value="Free Session">{t('freeSess')}</option>
             <option value="Free Test">{t('freeTest')}</option>
           </select>
         </div>
-      </form>
 
-      {/* Submit and Back buttons */}
-      <div className="flex flex-col gap-y-6 items-end md:flex-row md:justify-between mt-12 col-span-1 md:col-span-2">
-        <button data-aos="fade-up-right" type="button" className="p-4 px-8 rounded-4xl border-2 border-[var(--Yellow)]"
-          onClick={() => { window.history.back(); window.scroll(0, 0); }}>
-          {t('back')}
-        </button>
-        <button onClick={handleSubmit} data-aos="fade-up-left" type="submit" className="p-4 px-8 rounded-4xl bg-[var(--Yellow)]">
-          {t('submit')}
-        </button>
-      </div>
+        {/* Submit and Back buttons */}
+        <div className="flex flex-col gap-y-6 items-end md:flex-row md:justify-between mt-12 col-span-1 md:col-span-2">
+          <button data-aos="fade-up-right" type="button" className="p-4 px-8 rounded-4xl border-2 border-[var(--Yellow)]" onClick={() => { navigate(-1); window.scroll(0, 0); }}>
+            {t('back')}
+          </button>
+          <button data-aos="fade-up-left" type="submit" className="p-4 px-8 rounded-4xl bg-[var(--Yellow)]">
+            {t('submit')}
+          </button>
+        </div>
+      </form>
     </section>
   );
 };

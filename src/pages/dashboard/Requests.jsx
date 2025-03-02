@@ -48,7 +48,7 @@ function Requests() {
                     email: selectedRequest.email,
                     phoneNumber: selectedRequest.phoneNumber,
                     country: selectedRequest.country,
-                    date: date,
+                    date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
                     time: time
                 };
 
@@ -129,12 +129,7 @@ function Requests() {
                             onChange={(newDate) => setDate(newDate)}
                             theme={{
                                 root: { base: "p-3 h-full w-full focus:outline-none focus:ring-2 focus:ring-[var(--Main)]" },
-                                popup: {
-                                    footer: {
-                                        base: "mt-2 flex space-x-2",
-                                        button: { today: "bg-[var(--Main)] text-white" },
-                                    },
-                                },
+                                popup: {footer: {base: "mt-2 flex space-x-2",button: { today: "bg-[var(--Main)] text-white" },},},
                                 views: { days: { items: { item: { selected: "bg-[var(--Yellow)] text-white" } } } }
                             }}
                         />

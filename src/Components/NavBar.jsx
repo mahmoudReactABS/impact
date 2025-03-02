@@ -55,9 +55,10 @@ function Navbar() {
       <NavLink to="/about" className={({ isActive }) => isActive ? activeTab : tabStyle}>
        {t('AboutUs')}
       </NavLink>
-      {/* Language Selector and Book Free Test Button */}
+      
       <div className="flex items-center space-x-8 lg:ms-20 xl:ms-40">
-       <button onClick={() => nav('/bookTest')} className="bg-white p-3 rounded-4xl hover:bg-gray-100">
+       <button onClick={() => nav('/bookTest', { state: { option: "Free Test" } })} 
+       className={`bg-white p-3 rounded-4xl hover:bg-gray-100" ${i18n.language == 'ar' && "px-8"}`}>
         {t('BookFree')}
        </button>
        <div onClick={toggleLanguage} className="flex cursor-pointer text-white items-center space-x-2">
@@ -78,36 +79,16 @@ function Navbar() {
        <FontAwesomeIcon icon={faEarth} />
        {i18n.language === 'en' ? <span>{t('Arabic')}</span> : <span>{t('English')}</span>}
       </div>
-      <NavLink
-       to="/"
-       className={({ isActive }) =>
-        isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"
-       }
-      >
+      <NavLink to="/" className={({ isActive }) => isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"}>
        {t('Home')}
       </NavLink>
-      <NavLink
-       to="/courses"
-       className={({ isActive }) =>
-        isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"
-       }
-      >
+      <NavLink to="/courses" className={({ isActive }) => isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"}>
        {t('Courses')}
       </NavLink>
-      <NavLink
-       to="/about"
-       className={({ isActive }) =>
-        isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"
-       }
-      >
+      <NavLink to="/about" className={({ isActive }) => isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"}>
        {t('AboutUs')}
       </NavLink>
-      <NavLink
-       to="/bookTest"
-       className={({ isActive }) =>
-        isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"
-       }
-      >
+      <NavLink to="/bookTest" state={{ option: "Free Test" }} className="text-[var(--Main)] block">
        {t('BookFree')}
       </NavLink>
      </div>
