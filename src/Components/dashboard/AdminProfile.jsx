@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import user from '../../assets/ins8.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAdmin } from '../../AdminContext';
 

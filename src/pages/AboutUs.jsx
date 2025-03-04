@@ -13,7 +13,7 @@ import Mazen from '../assets/instructors/Mazen.jpg';
 import Nada from '../assets/instructors/Nada.jpg';
 import Shaza from '../assets/instructors/Shaza.jpg';
 
-import video from '../assets/video.mp4';
+import vid from '../assets/video.mp4';
 
 import { IoMdArrowBack, IoMdArrowForward } from 'react-icons/io';
 
@@ -29,7 +29,7 @@ function AboutUs() {
 
  const [sliderRef, instanceRef] = useKeenSlider({
   slides: {
-   perView: 3,
+   perView: 4,
    spacing: 0,
   },
   breakpoints: {
@@ -149,14 +149,14 @@ function AboutUs() {
   ;
 
  return (
-  <main className='space-y-4 lg:space-y-20'>
-   <h1 className='text-xl font-bold md:px-40 px-10'>{t('AboutUs')}</h1>
+  <main className='space-y-10 lg:space-y-20'>
+   <h1 className='text-3xl font-bold py-5 mb-8 md:px-40 px-10'>{t('AboutUs')}</h1>
 
    <section data-aos-duration="1000" data-aos-delay="1000" data-aos="fade-up" className='md:px-40 px-10'>
     <article className='my-10 space-y-10 md:px-1 w-full'>
      <h1 className='text-xl font-bold'>{t('AboutOur')}</h1>
      <div className='flex flex-col items-center'>
-      <video className='h-96 rounded-2xl' controls autoPlay src={video} />
+      <video className='h-full md:h-96 rounded-2xl' controls controlsList='nodownload' autoPlay src={vid} />
      </div>
     </article>
    </section>
@@ -177,7 +177,7 @@ function AboutUs() {
        <h1 className='text-lg font-bold'>{t('OurAchievements')}</h1>
        <p className='w-full lg:w-3/4'>{t('OurAchievementsDescription')}</p>
       </section>
-      <div className={`flex justify-end ${btn_pos}`}>
+      <div className={`flex justify-start ${btn_pos}`}>
        <button onClick={() => show == "" ? setShow("hidden") : setShow("")} className='p-4 text-black rounded-4xl bg-[var(--Yellow)] transition-colors'>
         {show ? t('ExploreMore') : t('ExploreLess')}
        </button>
@@ -219,11 +219,11 @@ function AboutUs() {
    </section>
 
    <section data-aos="fade-up" className='md:px-40 px-8 space-y-10 md:space-y-12'>
-    <h1 className='text-2xl md:text-3xl mb-20 lg:mb-48 font-bold text-center'>
+    <h1 className='text-2xl md:text-3xl font-bold text-center'>
      {t('OurTeachingApproach')}
     </h1>
 
-    <div className="">
+    <div className="md:block hidden">
      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:my-20 gap-4 md:gap-8 px-1.5">
       {currentFeatures.map((feature, index) => (
        <article data-aos="fade-up" data-aos-delay={feature.number * 100} key={index} className="bg-[var(--Light)] text-[var(--LightTxt)] p-4 rounded-3xl shadow-lg my-32  lg:my-0"
@@ -239,10 +239,26 @@ function AboutUs() {
       ))}
      </div>
     </div>
+
+    <div className="block md:hidden">
+     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:my-20 gap-4 md:gap-8 px-1.5">
+      {currentFeatures.map((feature, index) => (
+       <article data-aos="fade-up" data-aos-delay={feature.number * 100} key={index} className="bg-[var(--Light)] text-[var(--LightTxt)] p-4 rounded-3xl shadow-lg my-4">
+        <p className="text-4xl font-bold mb-4 text-center">{feature.number}</p>
+        <h2 className="text-xl md:text-2xl font-semibold mb-2 text-center">
+         {feature.title}
+        </h2>
+        <p className="text-gray-600 text-center md:text-left">
+         {feature.description}
+        </p>
+       </article>
+      ))}
+     </div>
+    </div>
    </section>
 
    <section data-aos="fade-up" className='md:px-40 px-8 space-y-10'>
-    <h1 className='font-bold text-2xl'>{t('MeetOurInstructors')}</h1>
+    <h1 className='font-bold text-xl md:text-2xl'>{t('MeetOurInstructors')}</h1>
 
     <article className="px-1.5">
      <div ref={sliderRef} className="keen-slider" dir="ltr">

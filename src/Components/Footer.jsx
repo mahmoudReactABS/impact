@@ -8,16 +8,16 @@ const Footer = () => {
   const { t, i18n } = useTranslation()
 
   return (
-    <footer className={`grid grid-cols-1 lg:grid-cols-4 p-10 lg:p-20 lg:px-40 text-white bg-gradient-to-r from-[var(--GradBg)] to-[var(--Main)] mt-12 ${i18n.language === 'ar' ? 'rtl' : ''}`}>
-      <section data-aos="fade-right" data-aos-duration="1000" className='space-y-8 lg:col-span-2'>
+    <footer className={`grid grid-cols-1 lg:grid-cols-2 p-10 lg:p-20 lg:px-40 text-white bg-gradient-to-r from-[var(--GradBg)] to-[var(--Main)] mt-12 ${i18n.language === 'ar' ? 'rtl' : ''}`}>
+      <section data-aos="fade-right" data-aos-duration="1000" className='space-y-6'>
         <img src={logo} className='w-40 lg:w-60' alt="Logo" />
 
         <h1 className='font-bold text-2xl'>{t('AboutUs')}</h1>
 
-        <p className='md:text-lg'>{t('footerDescription')}</p>
+        <p className='md:text-md'>{t('footerDescription')}</p>
       </section>
 
-      <article data-aos="fade-left" data-aos-duration="1000" className='flex justify-evenly space-x-10 lg:space-x-15 space-y-5 lg:space-y-0 flex-row lg:col-span-2 mt-10 lg:mt-0'>
+      <article data-aos="fade-left" data-aos-duration="1000" className='flex justify-evenly space-x-10 lg:space-x-15 space-y-5 lg:space-y-0 flex-row mt-10 lg:mt-0'>
         <section className='text-center space-y-4'>
           <h1 className='underline font-bold text-xl'>{t('quickLinks')}</h1>
 
@@ -48,7 +48,7 @@ const Footer = () => {
       </article>
       
       <article data-aos="fade-right" data-aos-duration="1000" className='space-y-4 mt-12 text-md'>
-        <p>{t('privacyPolicy')} | {t('contentPolicy')} | {t('termsOfUse')}</p>
+        <p> <span className='underline'>{t('privacyPolicy')}</span> | <span className='underline'>{t('contentPolicy')}</span> | <span className='underline'>{t('termsOfUse')}</span></p>
         <p>{t('designedBy')}</p>
         <p>{t('allRightsReserved')}</p>
       </article>

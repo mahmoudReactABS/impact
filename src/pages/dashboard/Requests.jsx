@@ -13,6 +13,8 @@ function Requests() {
     const [selectedRequestId, setSelectedRequestId] = useState(null);
     const [time, setTime] = useState('12:00');
     const [date, setDate] = useState(new Date());
+    const [isOpen, setIsOpen] = useState(false);
+    const [sorted, setSorted] = useState(null);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -36,36 +38,46 @@ function Requests() {
 
     const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
-    const filteredRequests = requests.filter((req) => req.name.toLowerCase().includes(searchQuery.toLowerCase()) || req.phoneNumber.includes(searchQuery));
+    const filteredRequests = requests.filter((req) =>
+        req.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        req.phoneNumber.includes(searchQuery)
+    );
+
+    const sortedRequests = sorted ? [...filteredRequests].sort((a, b) => {
+        if (a[sorted] > b[sorted]) return 1;
+        if (a[sorted] < b[sorted]) return -1;
+        return 0;
+    }) : filteredRequests;
 
     const submitData = async () => {
-        if (date && time && selectedRequestId) {
-            try {
-                const selectedRequest = requests.find((req) => req.id === selectedRequestId);
-
-                const requestData = {
-                    name: selectedRequest.name,
-                    email: selectedRequest.email,
-                    phoneNumber: selectedRequest.phoneNumber,
-                    country: selectedRequest.country,
-                    date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
-                    time: time
-                };
-
-                await addDoc(collection(db, selectedRequest.option), requestData);
-
-                const requestRef = doc(db, 'Requests', selectedRequestId);
-                await deleteDoc(requestRef);
-                const updatedRequests = requests.filter((req) => req.id !== selectedRequestId);
-                setRequests(updatedRequests);
-                setOpenModal(false);
-                window.scroll(0,0)
-            } catch (e) {
-                console.error('Error processing request: ', e);
-                alert('Failed to process the request.');
-            }
-        } else {
+        if (!date || !time || !selectedRequestId) {
             alert('Please select a date and time.');
+            return;
+        }
+
+        try {
+            const selectedRequest = requests.find((req) => req.id === selectedRequestId);
+
+            const requestData = {
+                name: selectedRequest.name,
+                email: selectedRequest.email,
+                phoneNumber: selectedRequest.phoneNumber,
+                country: selectedRequest.country,
+                date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+                time: time
+            };
+
+            await addDoc(collection(db, selectedRequest.option), requestData);
+
+            const requestRef = doc(db, 'Requests', selectedRequestId);
+            await deleteDoc(requestRef);
+            const updatedRequests = requests.filter((req) => req.id !== selectedRequestId);
+            setRequests(updatedRequests);
+            setOpenModal(false);
+            window.scroll(0, 0);
+        } catch (e) {
+            console.error('Error processing request: ', e);
+            alert('Failed to process the request.');
         }
     };
 
@@ -78,13 +90,32 @@ function Requests() {
                     <input type="search" placeholder="Search by name or phone" className="w-full p-2 bg-transparent border-0 focus:outline-0" value={searchQuery} onChange={handleSearchChange} />
                 </form>
 
-                <button className="text-2xl p-4 rounded-xl bg-[var(--Yellow)]">
-                    <HiMiniAdjustmentsHorizontal />
-                </button>
+                <div className="relative inline-block text-left">
+                    <button onClick={() => setIsOpen(!isOpen)} className="text-2xl p-4 rounded-xl bg-[var(--Yellow)] text-black focus:outline-none">
+                        <HiMiniAdjustmentsHorizontal />
+                    </button>
+                    {isOpen && (
+                        <div className="absolute -right-20 mt-2 w-fit rounded-lg border-2 border-[var(--Yellow)] shadow-lg bg-[var(--Input)]">
+                            <div className="w-full">
+                                <button onClick={() => setSorted("name")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                                    Name
+                                </button>
+                                <hr />
+                                <button onClick={() => setSorted("country")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                                    Country
+                                </button>
+                                <hr />
+                                <button onClick={() => setSorted("option")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                                    Option
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </section>
 
             <section className="overflow-hidden border-2 border-[#347792] rounded-xl">
-                {filteredRequests.length > 0 ? (
+                {sortedRequests.length > 0 ? (
                     <table className="w-full text-center table-auto">
                         <thead className="bg-[var(--Light)] text-[var(--SubText)] text-xl">
                             <tr>
@@ -98,7 +129,7 @@ function Requests() {
                         </thead>
 
                         <tbody>
-                            {filteredRequests.map((req) => (
+                            {sortedRequests.map((req) => (
                                 <tr key={req.id} className="hover:bg-gray-100">
                                     <td className="p-4">{req.name}</td>
                                     <td className="p-4">{req.email}</td>
@@ -117,31 +148,21 @@ function Requests() {
                 ) : <h2 className='py-8 text-4xl font-semibold text-center'>No Requests Available</h2>}
             </section>
 
-            <Modal open={openModal} onClose={() => setOpenModal(false)} center classNames={{ modal: "rounded-2xl w-full max-w-2xl" }}>
+            <Modal open={openModal} onClose={() => setOpenModal(false)} center styles={{ modal: { borderRadius: '1rem', maxWidth: '42rem', width: '100%' } }}>
                 <h2 className="my-12 text-3xl font-bold">Choose Date & Time</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <div className="flex justify-center items-start drop-shadow-lg">
-                        <Datepicker
-                            dateFormat="dd/mm/yyyy"
-                            minDate={new Date()}
-                            inline
-                            selected={date}
-                            onChange={(newDate) => setDate(newDate)}
+                        <Datepicker dateFormat="dd/MM/yyyy" minDate={new Date()} inline value={date} onChange={(newDate) => setDate(newDate)}
                             theme={{
                                 root: { base: "p-3 h-full w-full focus:outline-none focus:ring-2 focus:ring-[var(--Main)]" },
-                                popup: {footer: {base: "mt-2 flex space-x-2",button: { today: "bg-[var(--Main)] text-white" },},},
+                                popup: { footer: { base: "mt-2 flex space-x-2", button: { today: "bg-[var(--Main)] text-white" }, }, },
                                 views: { days: { items: { item: { selected: "bg-[var(--Yellow)] text-white" } } } }
                             }}
                         />
                     </div>
 
                     <div className="p-4 drop-shadow-lg">
-                        <TimeKeeper
-                            time={time}
-                            onChange={(newTime) => setTime(newTime.formatted24)}
-                            disabledTimeRange={{ from: '22:00', to: '09:00' }}
-                            switchToMinuteOnHourSelect={true}
-                        />
+                        <TimeKeeper time={time} onChange={(newTime) => setTime(newTime.formatted24)} switchToMinuteOnHourSelect={true} />
                     </div>
                 </div>
 

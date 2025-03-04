@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { toast } from "react-hot-toast";
 import { db, collection, addDoc } from '../data/firebaseConfig';
 import { query, where, getDocs, or } from 'firebase/firestore';
+import vector from '../assets/arrowvector.png';
 
 const FreeTest = () => {
   const { t, i18n } = useTranslation();
@@ -106,33 +107,36 @@ const FreeTest = () => {
 
   return (
     <section className="md:px-40 px-4">
-      <h2 className="text-2xl font-bold my-4">{t('applicationForm')}</h2>
+      <h2 className="text-3xl font-bold mb-10 my-4">{t('applicationForm')}</h2>
+
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Name Field */}
-        <div data-aos="fade-right" data-aos-duration="2000" className="space-y-4">
+        <div data-aos="fade-right" data-aos-duration="2000" className="space-y-2">
           <label className="block text-lg font-bold text-black">{t('name')}</label>
           <input type="text" name="name" value={formData.name} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md" placeholder={t('enterName')} />
         </div>
 
         {/* Email Field */}
-        <div data-aos="fade-left" data-aos-duration="2000" className="space-y-4">
+        <div data-aos="fade-left" data-aos-duration="2000" className="space-y-2">
           <label className="block text-lg font-bold text-black">{t('email')}</label>
           <input type="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md" placeholder={t('enterEmail')} />
         </div>
 
         {/* Phone Number Field */}
-        <div data-aos="fade-right" data-aos-duration="2000" className="space-y-4">
+        <div data-aos="fade-right" data-aos-duration="2000" className="space-y-2">
           <label className="block text-lg font-bold text-black">{t('phoneNumber')}</label>
           <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className={`mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md ${textAlignment}`} placeholder={t('enterPhoneNumber')} />
         </div>
 
         {/* Country Selection */}
-        <div className="space-y-4">
+        <div data-aos="fade-left" data-aos-duration="2000" className="space-y-2">
           <label className="block text-lg font-bold text-black">{t('country')}</label>
-          <select name="country" value={formData.country} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
+          <select name="country" value={formData.countriesEn} onChange={handleChange}
+            style={{ backgroundImage: `url(${vector})`, backgroundPosition: i18n.language == 'en' ? 'right 20px center' : 'left 20px center', backgroundSize: '10px', backgroundRepeat: 'no-repeat', }}
+            className="mt-1 appearance-none block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
             <option disabled value="">{t('chooseCountry')}</option>
             {i18n.language === 'ar'
-              ? countriesAr.sort().map((cntry, index) => <option key={index}>{cntry}</option>)
+              ? countries.sort().map((cntry, index) => <option key={index} value={cntry.nameEn}>{cntry.nameAr}</option>)
               : countriesEn.sort().map((cntry, index) => <option key={index}>{cntry}</option>)
             }
             <option disabled value="other">{t('other')}</option>
@@ -140,9 +144,11 @@ const FreeTest = () => {
         </div>
 
         {/* Option Field */}
-        <div data-aos="fade-right" data-aos-duration="2000" className="space-y-4">
+        <div data-aos="fade-right" data-aos-duration="2000" className="space-y-2">
           <label className="block text-lg font-bold text-black">{t('option')}</label>
-          <select name="option" value={formData.option} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
+          <select name="option" value={formData.option} onChange={handleChange}
+            style={{ backgroundImage: `url(${vector})`, backgroundPosition: i18n.language == 'en' ? 'right 20px center' : 'left 20px center', backgroundSize: '10px', backgroundRepeat: 'no-repeat', }}
+            className="mt-1 appearance-none block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
             <option disabled value="">{t('chooseOption')}</option>
             <option value="Free Session">{t('freeSess')}</option>
             <option value="Free Test">{t('freeTest')}</option>
@@ -150,7 +156,7 @@ const FreeTest = () => {
         </div>
 
         {/* Submit and Back buttons */}
-        <div className="flex flex-col gap-y-6 items-end md:flex-row md:justify-between mt-12 col-span-1 md:col-span-2">
+        <div className="flex gap-y-6 items-end justify-between mt-12 col-span-1 md:col-span-2">
           <button data-aos="fade-up-right" type="button" className="p-4 px-8 rounded-4xl border-2 border-[var(--Yellow)]" onClick={() => { navigate(-1); window.scroll(0, 0); }}>
             {t('back')}
           </button>
@@ -159,7 +165,7 @@ const FreeTest = () => {
           </button>
         </div>
       </form>
-    </section>
+    </section >
   );
 };
 

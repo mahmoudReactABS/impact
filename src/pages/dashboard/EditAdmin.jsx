@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router';
 import { db, collection, doc, updateDoc } from '../../data/firebaseConfig';
 import { query, where, getDocs } from 'firebase/firestore';
 import Swal from 'sweetalert2';
-import newph from '../../assets/ins2.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Modal } from 'react-responsive-modal';
 

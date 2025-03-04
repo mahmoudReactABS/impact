@@ -8,10 +8,10 @@ function Course(props) {
   navigate = useNavigate();
 
  return (
-  <article className='text-center text-white space-y-10 bg-[var(--Main)] rounded-4xl py-4 px-3 relative overflow-hidden'
+  <article className='text-center text-white space-y-10 bg-[var(--Main)]/90 rounded-4xl py-4 px-3 relative overflow-hidden'
    style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
    {/* Overlay */}
-   <div className='absolute inset-0 bg-[var(--Main)]/85 h-full z-10'></div>
+   <div className='absolute inset-0 bg-[var(--Main)]/90 h-full z-10'></div>
 
    {/* Content */}
    <div className='relative z-20 space-y-10'>

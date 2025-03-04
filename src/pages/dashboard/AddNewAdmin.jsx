@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import newPho from '../../assets/ins4.png';
 import { db, collection, addDoc } from '../../data/firebaseConfig';
 import { query, where, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router';

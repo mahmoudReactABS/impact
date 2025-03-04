@@ -7,9 +7,19 @@ function StudentsBooking() {
   const [requests, setRequests] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedButton, setSelectedButton] = useState('Free Session');
+  const [isOpen, setIsOpen] = useState(false);
+  const [sorted, setSorted] = useState(null);
 
-  const filteredRequests = requests.filter((req) => req.name.toLowerCase().includes(searchQuery.toLowerCase()) || req.phoneNumber.includes(searchQuery));
-  const handleSearchChange = (e) => setSearchQuery(e.target.value);
+  const filteredRequests = requests.filter((req) =>
+    req.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    req.phoneNumber.includes(searchQuery)
+  );
+
+  const sortedRequests = sorted ? [...filteredRequests].sort((a, b) => {
+    if (a[sorted] > b[sorted]) return 1;
+    if (a[sorted] < b[sorted]) return -1;
+    return 0;
+  }) : filteredRequests;
 
   const buttons = [{ name: "Courses" }, { name: "Free Test" }, { name: "Free Session" }];
 
@@ -18,8 +28,7 @@ function StudentsBooking() {
       try {
         const q = query(collection(db, selectedButton));
         const querySnapshot = await getDocs(q);
-
-        const req = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data(), }));
+        const req = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setRequests(req);
       } catch (e) {
         console.error('Error fetching Requests: ', e);
@@ -27,7 +36,9 @@ function StudentsBooking() {
     };
 
     fetchRequests();
-  }, [selectedButton]);
+  }, [selectedButton, sorted]);
+
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
   const handleButtonClick = (button) => setSelectedButton(button);
 
@@ -37,26 +48,52 @@ function StudentsBooking() {
 
       <section className="flex items-center justify-start space-x-8">
         <form className="inline-block w-[40%] bg-[var(--Light)]/95 p-2 rounded-xl">
-          <input type="search" placeholder="Search by name or phone" className="w-full p-2 bg-transparent border-0 focus:outline-0" value={searchQuery} onChange={handleSearchChange} />
+          <input type="search" placeholder="Search by name or phone"
+            className="w-full p-2 bg-transparent border-0 focus:outline-0"
+            value={searchQuery} onChange={handleSearchChange} />
         </form>
 
-        <button className="text-2xl p-4 rounded-xl bg-[var(--Yellow)]">
-          <HiMiniAdjustmentsHorizontal />
-        </button>
+        <div className="relative inline-block text-left">
+          <button onClick={() => setIsOpen(!isOpen)} className="text-2xl p-4 rounded-xl bg-[var(--Yellow)] text-black focus:outline-none">
+            <HiMiniAdjustmentsHorizontal />
+          </button>
+          {isOpen && (
+            <div className="absolute -right-20 mt-2 w-fit rounded-lg border-2 border-[var(--Yellow)] shadow-lg bg-[var(--Input)]">
+              <div className="w-full">
+                <button onClick={() => setSorted("name")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                  Name
+                </button>
+                <hr />
+                <button onClick={() => setSorted("country")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                  Country
+                </button>
+                <hr />
+                <button onClick={() => setSorted("date")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                  Date
+                </button>
+                <hr />
+                <button onClick={() => setSorted("time")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                  Time
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
 
       <h1 className="font-bold text-2xl">{selectedButton}</h1>
 
       <section className="flex justify-start space-x-14 text-lg">
-        {
-          buttons.map(btn => <button className={`px-12 py-4 rounded-xl 
-        ${selectedButton !== btn.name ? 'border-2 border-[var(--Yellow)]' : 'bg-[var(--Yellow)]'}`}
-            onClick={() => handleButtonClick(btn.name)}>{btn.name}</button>)
-        }
+        {buttons.map(btn => (
+          <button className={`px-12 py-4 rounded-xl ${selectedButton !== btn.name ? 'border-2 border-[var(--Yellow)]' : 'bg-[var(--Yellow)]'}`}
+            onClick={() => handleButtonClick(btn.name)}>
+            {btn.name}
+          </button>
+        ))}
       </section>
 
       <section className="overflow-hidden border-2 border-[#347792] rounded-xl">
-        {filteredRequests.length > 0 ? (
+        {sortedRequests.length > 0 ? (
           selectedButton === 'Courses' ? (
             <table className="w-full text-center table-auto">
               <thead className="bg-[var(--Light)] text-[var(--SubText)] text-xl">
@@ -73,9 +110,8 @@ function StudentsBooking() {
                   <th className="p-4">Time</th>
                 </tr>
               </thead>
-
               <tbody>
-                {filteredRequests.map((req) => (
+                {sortedRequests.map((req) => (
                   <tr key={req.id} className="hover:bg-gray-100">
                     <td className="p-4">{req.name}</td>
                     <td className="p-4">{req.email}</td>
@@ -84,7 +120,7 @@ function StudentsBooking() {
                     <td className="p-4">{req.category}</td>
                     <td className="p-4">{req.option}</td>
                     <td className="p-4">{req.type}</td>
-                    <td className={"p-4" + req.test === 'no' && "text-[var(--Yellow)]"}>{req.test}</td>
+                    <td className={`p-4 ${req.test === 'no' && 'text-[var(--Yellow)]'}`}>{req.test}</td>
                     <td className="p-4">{req.date}</td>
                     <td className="p-4">{req.time}</td>
                   </tr>
@@ -103,9 +139,8 @@ function StudentsBooking() {
                   <th className="p-4">Time</th>
                 </tr>
               </thead>
-
               <tbody>
-                {filteredRequests.map((req) => (
+                {sortedRequests.map((req) => (
                   <tr key={req.id} className="hover:bg-gray-100">
                     <td className="p-4">{req.name}</td>
                     <td className="p-4">{req.email}</td>

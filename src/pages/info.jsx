@@ -51,25 +51,25 @@ function CourseDetails() {
       <section className="space-y-6">
         <h2 className="text-xl font-bold">{currentLanguage === 'en' ? 'Course Highlights' : 'أبرز النقاط في الدورة'}</h2>
 
-        <ul className="list-none text-xl ml-6 space-y-4">
+        <ul className="list-none ml-6 space-y-4 text-sm md:text-2xl">
           <li data-aos="fade-left" data-aos-delay="100" key="student">
             <div className="flex gap-7 items-center">
-              <IoPersonSharp className="text-[var(--Main)] text-2xl" aria-label="Student" /> {course.studentNo}
+              <IoPersonSharp className="text-[var(--Main)] text-2xl md:text-3xl" aria-label="Student" /> {course.studentNo}
             </div>
           </li>
           <li data-aos="fade-left" data-aos-delay="200" key="level-assessment">
             <div className="flex gap-7 items-center">
-              <FaChartLine className="text-[var(--Main)] text-2xl" aria-label="Level Assessment" /> {currentLanguage === 'en' ? 'Level Assessment' : 'تقييم المستوى'}
+              <FaChartLine className="text-[var(--Main)] text-2xl md:text-3xl" aria-label="Level Assessment" /> {currentLanguage === 'en' ? 'Level Assessment' : 'تقييم المستوى'}
             </div>
           </li>
           <li data-aos="fade-left" data-aos-delay="300" key="live-sessions">
             <div className="flex gap-7 items-center">
-              <GiTeacher className="text-[var(--Main)] text-2xl" aria-label="Live Sessions" /> {currentLanguage === 'en' ? 'Live Sessions' : 'جلسات مباشرة'}
+              <GiTeacher className="text-[var(--Main)] text-2xl md:text-3xl" aria-label="Live Sessions" /> {currentLanguage === 'en' ? 'Live Sessions' : 'جلسات مباشرة'}
             </div>
           </li>
           <li data-aos="fade-left" data-aos-delay="400" key="weekly-conversation">
             <div className="flex gap-7 items-center">
-              <FaCalendarAlt className="text-[var(--Main)] text-2xl" aria-label="Weekly Conversation Classes" /> {currentLanguage === 'en' ? 'Weekly Conversation Classes' : 'دروس محادثة أسبوعية'}
+              <FaCalendarAlt className="text-[var(--Main)] text-2xl md:text-3xl" aria-label="Weekly Conversation Classes" /> {currentLanguage === 'en' ? 'Weekly Conversation Classes' : 'دروس محادثة أسبوعية'}
             </div>
           </li>
         </ul>

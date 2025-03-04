@@ -9,8 +9,8 @@ import { faEarth } from '@fortawesome/free-solid-svg-icons';
 function Navbar() {
  const { t, i18n, changeLanguage } = useTranslationContext();
  const [isOpen, setIsOpen] = useState(false);
- const activeTab = "text-[var(--Yellow)] text-sm lg:text-lg font-bold";
- const tabStyle = "text-white text-sm lg:text-lg font-semibold hover:text-gray-200";
+ const activeTab = "text-[var(--Yellow)] text-sm lg:text-xl font-bold";
+ const tabStyle = "text-white text-sm lg:text-xl hover:text-gray-200";
  const nav = useNavigate();
 
  const toggleLanguage = () => {
@@ -79,13 +79,13 @@ function Navbar() {
        <FontAwesomeIcon icon={faEarth} />
        {i18n.language === 'en' ? <span>{t('Arabic')}</span> : <span>{t('English')}</span>}
       </div>
-      <NavLink to="/" className={({ isActive }) => isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"}>
+      <NavLink to="/" className={({ isActive }) => isActive ? "text-[var(--Yellow)] font-bold block" : "text-[var(--Main)] block"}>
        {t('Home')}
       </NavLink>
-      <NavLink to="/courses" className={({ isActive }) => isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"}>
+      <NavLink to="/courses" className={({ isActive }) => isActive ? "text-[var(--Yellow)] font-bold block" : "text-[var(--Main)] block"}>
        {t('Courses')}
       </NavLink>
-      <NavLink to="/about" className={({ isActive }) => isActive ? "text-[var(--Yellow)] block" : "text-[var(--Main)] block"}>
+      <NavLink to="/about" className={({ isActive }) => isActive ? "text-[var(--Yellow)] font-bold block" : "text-[var(--Main)] block"}>
        {t('AboutUs')}
       </NavLink>
       <NavLink to="/bookTest" state={{ option: "Free Test" }} className="text-[var(--Main)] block">

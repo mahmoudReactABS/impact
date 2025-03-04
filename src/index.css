@@ -2,7 +2,7 @@
 @import "react-datepicker/dist/react-datepicker.css";
 
 :root {
-  font-family: 'poppins', sans-serif;
+  font-family: "poppins", sans-serif;
 
   /* website colors */
   --GradBg: #004a8f;
@@ -13,30 +13,37 @@
   --Yellow: #f5d019;
   --SubText: #031323a6;
   --SubTextBorder: #68686880;
-  
+
   /* clock colors */
   --top-selected-color: var(--Yellow);
   --top-colon-color: black;
   --clock-wrapper-bg: white;
   --top-text-color: black;
   --top-meridiem-color: black;
-  
+
   --numbers-text-color: black;
-  
+
   --hand-line-color: var(--Yellow);
   --hand-circle-center: var(--Yellow);
   --hand-circle-outer: var(--Yellow);
   --hand-minute-circle: var(--Yellow);
-  
-    --meridiem-selected-bg-color: var(--Yellow);
-    --meridiem-text-color: black;
-    --meridiem-selected-text-color: black;
+
+  --meridiem-selected-bg-color: var(--Yellow);
+  --meridiem-text-color: black;
+  --meridiem-selected-text-color: black;
 }
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   font-family: "poppins";
 }
 
-button,Link {
+button,
+Link {
   cursor: pointer;
+}
+
+hr{
+  color:var(--SubTextBorder)
 }

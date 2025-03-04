@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
-import user from '../../assets/ins2.png';
 import { useNavigate } from 'react-router-dom';
 
 const OtherAdmin = (props) => {
