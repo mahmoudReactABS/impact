@@ -15,16 +15,16 @@ function Course(props) {
 
    {/* Content */}
    <div className='relative z-20 space-y-10'>
-    <h1 className='text-2xl text-[var(--Yellow)] font-bold'>{props.title}</h1>
-    <h3 className='text-xl font-bold'>{t('liveSession.title')}</h3>
+    <h1 className='text-3xl text-[var(--Yellow)] font-bold'>{props.title}</h1>
+    <h3 className='text-2xl font-bold'>{t('liveSession.title')}</h3>
 
-    <div className='space-y-5'>
+    <div className='space-y-8 text-md lg:text-xl'>
      <p>{t('liveSession.duration')}</p>
      <p>{t('liveSession.sessionsPerWeek')}</p>
      <p>{t('liveSession.schedule')}</p>
     </div>
 
-    <button onClick={() => { navigate(`/courses/${props.direc}`); window.scroll(0, 0) }} className='bg-white p-3 text-black rounded-4xl w-full'>
+    <button onClick={() => { navigate(`/courses/${props.direc}`); window.scroll(0, 0) }} className='bg-white p-3 my-2 text-black rounded-4xl w-full'>
      {t('liveSession.moreDetails')}
     </button>
    </div>

@@ -9,13 +9,35 @@ import i18n from '../i18n';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const MainLayout = () => {
+  // const [coordinates, setCoordinates] = useState({
+  //   latitude: null,
+  //   longitude: null,
+  // });
+
+  // useEffect(() => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         setCoordinates({
+  //           latitude: position.coords.latitude,
+  //           longitude: position.coords.longitude,
+  //         });
+  //       },
+  //       (err) => {
+  //         setError(err.message);
+  //       }
+  //     );
+  //   } else {
+  //     setError('Geolocation is not supported by this browser.');
+  //   }
+  // }, []);
+
+  // const [error, setError] = useState(null);
   return (
-    <main className="w-full overflow-x-hidden">
+    <main className="overflow-x-hidden">
       <I18nextProvider i18n={i18n}>
         <TranslationProvider>
-          <div data-aos="fade-down" data-aos-duration="1000" className="flex w-full justify-center">
-            <Navbar />
-          </div>
+          <Navbar />
           <Link to='https://wa.me/+20123456789' target='_blank' className="fixed bottom-5 right-5 lg:bottom-10 lg:right-10 bg-[#25D366] text-white p-4 rounded-full text-3xl md:text-5xl z-50">
             <FaWhatsapp />
           </Link>

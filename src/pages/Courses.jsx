@@ -29,10 +29,10 @@ function Courses() {
   }, []);
 
   return (
-    <section className='px-10 md:px-40'>
+    <section className='px-10 md:px-60'>
       <h1 data-aos="fade-up" className='font-bold text-3xl py-5 mb-8'>{t('ourcorses')}</h1>
 
-      <article data-aos="fade-up" data-aos-delay="600" className='grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-16'>
+      <article data-aos="fade-up" data-aos-delay="600" className='grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-8'>
         {/* Check if courses data is loaded */}
         {courses.IELTS && (
           <Course title={t('courses.ielts')} direc='IELTS' courseData={courses.IELTS} />

@@ -22,15 +22,15 @@ function AboutUs() {
  const [show, setShow] = useState("hidden");
  const [show2, setShow2] = useState("hidden");
 
- const rotation1 = i18n.language === 'en' ? "-right-40" : "-left-31",
-  rotation2 = i18n.language === 'en' ? " -left-40" : "-right-44";
+ const rotation1 = i18n.language === 'en' ? "-right-60 md:top-28 lg:top-20 xl:top-10" : "-left-60 md:top-28 lg:top-8",
+  rotation2 = i18n.language === 'en' ? " -left-56" : "-right-60";
 
- const btn_pos = i18n.language === 'en' ? "pe-14" : "pe-20";
+ const btn_pos = i18n.language === 'en' ? "pe-14" : "pe-24";
 
  const [sliderRef, instanceRef] = useKeenSlider({
   slides: {
-   perView: 4,
-   spacing: 0,
+   perView: 3,
+   spacing: 3,
   },
   breakpoints: {
    '(max-width: 992px)': {
@@ -150,51 +150,53 @@ function AboutUs() {
 
  return (
   <main className='space-y-10 lg:space-y-20'>
-   <h1 className='text-3xl font-bold py-5 mb-8 md:px-40 px-10'>{t('AboutUs')}</h1>
+   <h1 className='font-bold text-3xl py-5 mb-8 px-10 md:px-12 lg:px-60'>{t('AboutUs')}</h1>
 
-   <section data-aos-duration="1000" data-aos-delay="1000" data-aos="fade-up" className='md:px-40 px-10'>
+   <section data-aos-duration="1000" data-aos-delay="1000" data-aos="fade-up" className='px-10 md:px-12 lg:px-60'>
     <article className='my-10 space-y-10 md:px-1 w-full'>
-     <h1 className='text-xl font-bold'>{t('AboutOur')}</h1>
+     <h1 className='text-2xl font-bold'>{t('AboutOur')}</h1>
      <div className='flex flex-col items-center'>
-      <video className='h-full md:h-96 rounded-2xl' controls controlsList='nodownload' autoPlay src={vid} />
+      <video className='h-full rounded-2xl' controls controlsList='nodownload' autoPlay src={vid} />
      </div>
     </article>
    </section>
 
-   <section className='relative grid grid-cols-1 md:grid-cols-3'>
-    <article data-aos="fade-right" data-aos-duration="1000" className="mb-10 relative z-10 md:m-0">
-     <img src={group} className={`md:top-28 lg:top-8 md:pr-10 hidden px-1 md:block absolute w-full ${show ? 'h-60' : 'h-80'} ${rotation1}`} alt="Meeting" />
+   <section className='relative grid grid-cols-1 lg:grid-cols-3'>
+    {/* Image on Top */}
+    <article data-aos="fade-left" data-aos-duration="1000" className="relative z-20">
+     <img src={group} className={`md:pr-2 hidden px-1 lg:block absolute w-full ${show ? 'h-60' : 'h-96'} ${rotation1}`} alt="Meeting" />
     </article>
 
-    <div className="ps-12 lg:ps-20 col-span-2">
-     <article data-aos="fade-left" data-aos-duration="1000" className='space-y-6 text-[var(--LightTxt)] bg-[var(--Light)] p-8 md:pl-20 md:m-0 md:pr-28 rounded-s-4xl'>
+    {/* Text Below the Image */}
+    <div className="ps-8 lg:ps-20 col-span-2">
+     <article data-aos="fade-right" data-aos-duration="1000" className={`space-y-6 text-[var(--LightTxt)] bg-[var(--Light)] p-8 ${i18n.language == 'en' ? 'md:pl-12 lg:pl-60 pl-12' : "md:pr-12 lg:pr-60 pr-12"} rounded-s-4xl`}>
       <h1 className='text-xl md:text-2xl font-bold'>{t('AcademyBackground')}</h1>
       <h3 className='font-bold'>{t('OurJourney')}</h3>
-      <p className='w-full lg:w-3/4'>
-       {t('acadback')}
-      </p>
+      <p className='w-full lg:w-3/4'>{t('acadback')}</p>
+
       <section className={`my-3 space-y-3 ${show}`}>
        <h1 className='text-lg font-bold'>{t('OurAchievements')}</h1>
        <p className='w-full lg:w-3/4'>{t('OurAchievementsDescription')}</p>
       </section>
-      <div className={`flex justify-start ${btn_pos}`}>
+
+      <div className={`flex justify-end ${i18n.language === 'en' ? 'md:pr-40' : 'md:pl-40'} ${btn_pos}`}>
        <button onClick={() => show == "" ? setShow("hidden") : setShow("")} className='p-4 text-black rounded-4xl bg-[var(--Yellow)] transition-colors'>
         {show ? t('ExploreMore') : t('ExploreLess')}
        </button>
       </div>
      </article>
     </div>
-
    </section>
 
    <section className='relative grid grid-cols-1 lg:grid-cols-3'>
     <div className="pe-8 lg:pe-20 col-span-2">
-     <article data-aos="fade-right" data-aos-duration="1000" className='space-y-6 text-[var(--LightTxt)] bg-[var(--Light)] p-8 md:pl-40 md:pr-40 rounded-e-4xl'>
+     <article data-aos="fade-right" data-aos-duration="1000" className={`space-y-6 text-[var(--LightTxt)] bg-[var(--Light)] p-8 ${i18n.language == 'en' ? 'md:pl-12 lg:pl-60 pl-12' : "md:pr-12 lg:pr-60 pr-12"} rounded-e-4xl`}>
       <h1 className='text-xl md:text-2xl font-bold'>{t('WhyWeAreUnique')}</h1>
       <h3 className='text-lg font-bold'>{t('ExpertGuidance')}</h3>
       <p className='w-full lg:w-3/4 text-lg'>{t('Learn from certified instructors with years of experience.')}</p>
       <h3 className='text-lg font-bold'>{t('Tailored Learning')}</h3>
       <p className='w-full lg:w-3/4 text-lg'>{t('Courses customized to match your proficiency level and goals.')}</p>
+
       <section className={`my-3 space-y-3 ${show2}`}>
        <div className="space-y-3">
         <h3 className='text-lg font-bold'>{t('BilingualSupport')}</h3>
@@ -205,7 +207,7 @@ function AboutUs() {
         <p className='w-full lg:w-3/4 text-lg'>{t('FlexibleSchedulingDescription')}</p>
        </div>
       </section>
-      <div className={`flex justify-end md:${btn_pos}`}>
+      <div className={`flex justify-end md:${btn_pos}  ${i18n.language == 'en' ? 'md:pr-40' : 'md:pl-40'}`}>
        <button onClick={() => show2 == "" ? setShow2("hidden") : setShow2("")} className='p-4 text-black rounded-4xl bg-[var(--Yellow)] transition-colors'>
         {show2 ? t('ExploreMore') : t('ExploreLess')}
        </button>
@@ -218,18 +220,18 @@ function AboutUs() {
     </article>
    </section>
 
-   <section data-aos="fade-up" className='md:px-40 px-8 space-y-10 md:space-y-12'>
+   <section data-aos="fade-up" className='px-10 md:px-12 lg:px-60 space-y-10 lg:space-y-20'>
     <h1 className='text-2xl md:text-3xl font-bold text-center'>
      {t('OurTeachingApproach')}
     </h1>
 
-    <div className="md:block hidden">
-     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:my-20 gap-4 md:gap-8 px-1.5">
+    <div className="xl:block hidden">
+     <div className="grid grid-cols-1 lg:grid-cols-4 lg:my-20 gap-2 md:gap-8">
       {currentFeatures.map((feature, index) => (
-       <article data-aos="fade-up" data-aos-delay={feature.number * 100} key={index} className="bg-[var(--Light)] text-[var(--LightTxt)] p-4 rounded-3xl shadow-lg my-32  lg:my-0"
-        style={{ marginTop: `-${feature.number * 30}px` }}>
-        <p className="text-4xl font-bold mb-4 text-center">{feature.number}</p>
-        <h2 className="text-xl md:text-2xl font-semibold mb-2 text-center">
+       <article data-aos="fade-up" data-aos-delay={feature.number * 100} key={index} className="bg-[var(--Light)] text-[var(--LightTxt)] p-4 rounded-3xl shadow-lg lg:my-0"
+        style={{ marginTop: `-${feature.number * 30}px`}}>
+        <p className="text-4xl font-bold my-6 text-center">{feature.number}</p>
+        <h2 className="text-xl md:text-2xl font-semibold my-6 text-center">
          {feature.title}
         </h2>
         <p className="text-gray-600 text-center md:text-left">
@@ -240,10 +242,10 @@ function AboutUs() {
      </div>
     </div>
 
-    <div className="block md:hidden">
-     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:my-20 gap-4 md:gap-8 px-1.5">
+    <div className="block xl:hidden">
+     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-8">
       {currentFeatures.map((feature, index) => (
-       <article data-aos="fade-up" data-aos-delay={feature.number * 100} key={index} className="bg-[var(--Light)] text-[var(--LightTxt)] p-4 rounded-3xl shadow-lg my-4">
+       <article data-aos="fade-up" data-aos-delay={feature.number * 100} key={index} className="bg-[var(--Light)] text-[var(--LightTxt)] p-4 rounded-3xl shadow-lg">
         <p className="text-4xl font-bold mb-4 text-center">{feature.number}</p>
         <h2 className="text-xl md:text-2xl font-semibold mb-2 text-center">
          {feature.title}
@@ -257,7 +259,7 @@ function AboutUs() {
     </div>
    </section>
 
-   <section data-aos="fade-up" className='md:px-40 px-8 space-y-10'>
+   <section data-aos="fade-up" className='px-10 md:px-12 lg:px-60 space-y-10'>
     <h1 className='font-bold text-xl md:text-2xl'>{t('MeetOurInstructors')}</h1>
 
     <article className="px-1.5">
