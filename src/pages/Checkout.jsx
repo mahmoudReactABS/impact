@@ -18,6 +18,55 @@ function Checkout() {
   const [course, setCourse] = useState({
     Options: [{ duration: 'N/A', Hours: 'N/A', priceAfter: 'N/A' }],
   });
+  const [price, setPrice] = useState(null);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+
+  const send = async () => {
+    if (latitude && longitude) {
+      try {
+        const dataAfter = await fetch("https://impact-backend-ten.vercel.app/get-currency", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify({
+            latitude,
+            longitude,
+            priceUSD: course?.Options[0]?.priceAfter, 
+          })
+        });
+        const finalDataAfter = await dataAfter.json();
+        if (finalDataAfter) {
+          setPrice(finalDataAfter);  
+          console.log(finalDataAfter);
+          
+        }
+      } catch (error) {
+        console.error("Error fetching currency data:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.error("Error getting geolocation:", error);
+        }
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      send();
+    }
+  }, [latitude, longitude]);
 
   const [cardholderName, setCardholderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
@@ -28,7 +77,7 @@ function Checkout() {
 
   useEffect(() => {
     const fetchCourseData = async () => {
-      if (!formData?.option) return;
+      if (!formData?.option || !formData?.number) return;
 
       try {
         const courseRef = doc(db, 'courses', formData.option);
@@ -37,8 +86,10 @@ function Checkout() {
         if (courseSnap.exists()) {
           const courseData = courseSnap.data();
           const courseLangData = courseData[currentLanguage] || courseData.en;
+
+          const filteredOptions = courseLangData.Options.filter(opt => opt.id === formData.number);
+          setFiltered(filteredOptions);
           setCourse(courseLangData);
-          setFiltered(courseLangData.Options.filter(opt => opt.priceAfter === formData.priceAfter));
         } else {
           console.error('Course not found in Firestore');
         }
@@ -156,7 +207,7 @@ function Checkout() {
           </ul>
           <div>
             <h2 className="text-xl font-bold my-2">{t('price')}</h2>
-            <h2 className="text-5xl text-[var(--Yellow)] font-bold my-2">{filtered[0]?.priceAfter} $</h2>
+            <h2 className="text-5xl text-[var(--Yellow)] font-bold my-2">{price ? price.finalPrice : course?.Options[0]?.priceAfter}</h2>
           </div>
         </article>
 

@@ -58,7 +58,7 @@ function HomePage() {
  const details = [
   { number: freeTest.length, description: 'Free Test' },
   { number: freeSession.length, description: 'Free Session' },
-  { number: '350', description: 'Total Student' },
+  { number: freeTest.length+freeSession.length, description: 'Total Student' },
   { number: '350', description: 'Paid Courses' },
  ];
 

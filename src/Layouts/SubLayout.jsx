@@ -15,7 +15,7 @@ const SubLayout = () => {
      <Link to="">
       <img src={logo} data-aos="fade-down" data-aos-duration="5000" className=" h-12 my-12 md:px-40 px-4" alt="Logo" />
      </Link>
-     <Link to='https://wa.me/+20123456789' target='_blank' className="fixed bottom-5 right-5 lg:bottom-10 lg:right-10 bg-[#25D366] text-white p-4 rounded-full text-5xl z-50">
+     <Link to='https://wa.me/+201091085271' target='_blank' className="fixed bottom-5 right-5 lg:bottom-10 lg:right-10 bg-[#25D366] text-white p-4 rounded-full text-5xl z-50">
       <FaWhatsapp />
      </Link>
      <Outlet />

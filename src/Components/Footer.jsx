@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import logo from '../assets/Logo White 1.png'
 import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
+import { IoMdMail } from 'react-icons/io'
 
 const Footer = () => {
   const { t, i18n } = useTranslation()
@@ -32,24 +33,29 @@ const Footer = () => {
           <h1 className='underline font-bold text-xl'>{t('followUs')}</h1>
 
           <ul className='flex justify-center space-x-3 lg:space-x-6 text-xl md:text-2xl'>
-            <li><FaInstagram /></li>
-            <li><FaFacebook /></li>
-            <li><FaTiktok /></li>
+            <Link to="https://www.instagram.com/_impactacademy"><FaInstagram /></Link>
+            <Link to="https://www.facebook.com/Impactacademy25"><FaFacebook /></Link>
+            <Link to="https://www.tiktok.com/@impactacademy1"><FaTiktok /></Link>
+            <a href="mailto:impactacademy.25@gmail.com"><IoMdMail /></a>
           </ul>
 
           <div className='text-center space-y-3 lg:space-y-6'>
             <h1 className='underline font-bold text-xl'>{t('contactUs')}</h1>
-            <div className='flex gap-x-2 items-center justify-center text-lg md:text-xl'>
-              <FaWhatsapp className='' /> 
-              <span>{t('whatsappNumber')}</span>
+            <div className='flex gap-x-2 items-center justify-center text-lg md:text-xl my-2'>
+              <FaWhatsapp className='' />
+              <a href='tel:+201091085271' target='_blank'>01091085271</a>
             </div>
           </div>
         </section>
       </article>
-      
+
       <article data-aos="fade-right" data-aos-duration="1000" className='space-y-4 mt-12 text-md'>
-        <p> <span className='underline'>{t('privacyPolicy')}</span> | <span className='underline'>{t('contentPolicy')}</span> | <span className='underline'>{t('termsOfUse')}</span></p>
-        <p>{t('designedBy')}</p>
+        <a href={i18n.language == 'en' ? 'https://drive.google.com/file/d/15upFpPxAy03B9X3mz_AXyfXT7cGnDiuX/view?usp=sharing' : 'https://drive.google.com/file/d/15upFpPxAy03B9X3mz_AXyfXT7cGnDiuX/view?usp=sharing'} target="_blank">
+          <span className='border-b-2'>{t('privacyPolicy')}</span> |
+          <span className='border-b-2'>{t('contentPolicy')}</span> |
+          <span className='border-b-2'>{t('termsOfUse')}</span>
+        </a>
+        <p className='my-3'>{t('designedBy')} <a href='https://ABSai.dev' target='_blank'></a></p>
         <p>{t('allRightsReserved')}</p>
       </article>
     </footer>

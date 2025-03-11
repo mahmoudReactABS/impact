@@ -11,7 +11,7 @@ import thinking from '../assets/thinking.png';
 import video from '../assets/video.mp4';
 
 import { RiGlobeLine } from "react-icons/ri";
-import { PiGraduationCapBold, PiBookBold, PiCertificateFill, PiGlobeStandFill } from "react-icons/pi";
+import { PiGraduationCapBold, PiBookBold, PiGlobeStandFill } from "react-icons/pi";
 import { ImBooks } from "react-icons/im";
 import { FaLaptop, FaMoneyBillWave } from 'react-icons/fa';
 
@@ -27,7 +27,7 @@ function Home() {
     <main className='space-y-20'>
       <Toaster />
 
-      <section className='grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-16 md:px-[120px] px-10 mt-8'>
+      <section className='grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-12 md:px-[100px] px-10'>
         <article data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1000" className='container flex flex-col justify-center space-y-8'>
           <h1 className='text-2xl md:text-3xl lg:text-6xl font-bold'>{t('fluencyStartsHere1')} <span className="text-[var(--Yellow)]">{t('fluencyStartsHere2')}</span>  {t('fluencyStartsHere3')}</h1>
           <p className='text-sm md:text-xl'>{t('learnFromInstructors')}</p>
@@ -44,14 +44,14 @@ function Home() {
         </article>
 
         <article data-aos="fade-left" data-aos-duration="1000" data-aos-delay="1000" className='container flex justify-center lg:justify-end'>
-          <img className="h-full w-lg" src={photo} alt="student" />
+          <img className="w-full" src={photo} alt="student" />
         </article>
       </section>
 
       <section className='text-center space-y-4 md:px-[120px] px-10'>
-        <h1 className='text-2xl md:text-3xl font-extrabold'>{t('ourJourney')}</h1>
+        <h1 className='text-2xl md:text-3xl font-bold'>{t('ourJourney')}</h1>
         <div data-aos="fade-up" data-aos-duration="2500" data-aos-delay="400" className='flex justify-center items-center'>
-          <video className='h-full px-4 rounded-4xl' controls autoPlay src={video} />
+          <video className='w-[83.5%] px-4 rounded-4xl' controls autoPlay src={video} />
         </div>
       </section>
 
@@ -91,7 +91,7 @@ function Home() {
 
           <div className='hidden lg:block'></div>
 
-          <img src={offer} className={`absolute hidden lg:block w-80 h-80 z-10 end-full md:end-76 ${i18n.language === 'ar' && 'scale-x-[-1]'}`} alt="offer" />
+          <img src={offer} className={`absolute hidden lg:block w-80 h-80 z-10 end-full md:end-[31%]`} alt="offer" />
 
           <div data-aos="fade-left" data-aos-duration="3000" data-aos-delay="1000" className='text-start flex flex-col space-y-6 md:space-y-8 z-0 col-span-3'>
             <h2 className='font-bold text-2xl md:text-3xl'>{t('benefits')}</h2>
@@ -104,7 +104,7 @@ function Home() {
         </article>
 
         <div data-aos="fade-left" data-aos-duration="3000" data-aos-delay="1000" className="flex justify-end my-8">
-          <button onClick={() => { navigate('/bookTest', { state: { option: "Free Session" } }); window.scroll(0, 0) }} className='p-3 sm:p-4 rounded-4xl bg-[var(--Yellow)] text-sm sm:text-base'>
+          <button onClick={() => { navigate('/bookTest', { state: { option: "Free Session" } }); window.scroll(0, 0) }} className={`p-3 sm:p-4 rounded-4xl bg-[var(--Yellow)] ${i18n.language == 'ar' ? 'w-[100px]' : 'w-[200px]'} text-sm sm:text-base`}>
             {t('bookFreeTrial')}
           </button>
         </div>
@@ -115,7 +115,7 @@ function Home() {
 
         <article className='grid grid-cols-1 gap-x-2 my-6 lg:grid-cols-8 lg:gap-x-8 lg:my-12'>
           <div className='mb-6 lg:mb-0 lg:col-span-3 hidden lg:flex flex-col items-center justify-end'>
-            <img src={thinking} className='lg:h-96' alt="thinking" />
+            <img src={thinking} className='w-full' alt="thinking" />
           </div>
 
           <div className='space-y-4 lg:space-y-8 lg:col-span-5 flex flex-col justify-end'>

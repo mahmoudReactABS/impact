@@ -45,10 +45,10 @@ const AppForm = () => {
           const courseData = docSnap.data()?.[currentLanguage];
 
           if (courseData) {
+            // Filter based on the course ID (number)
             const filteredCourse = courseData.Options.filter((data) => data.id === formData.number);
             setCourse(filteredCourse);
             setOptions(courseData.Options.map(opt => opt.levelno));
-
           } else {
             console.log('No options data found.');
           }
@@ -61,7 +61,7 @@ const AppForm = () => {
     };
 
     fetchCourse();
-  }, [formData.option, currentLanguage]);
+  }, [formData.option, formData.number, currentLanguage]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -76,7 +76,7 @@ const AppForm = () => {
       return;
     }
 
-    navigate('/checkout', { state: { formData } });
+    navigate('/checkout', { state: { formData,number: formData.number } });
     window.scroll(0, 0);
   };
 

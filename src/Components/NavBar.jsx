@@ -20,7 +20,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="md:bg-[var(--Main)] w-full md:w-[850px] lg:w-[1050px] px-4 sm:px-6 lg:px-8 py-4 my-5 rounded-none md:rounded-full">
+    <nav className="md:bg-[var(--Main)] w-full md:w-[850px] lg:w-[1050px] px-4 sm:px-6 lg:px-8 py-4 my-5 mx-auto rounded-none md:rounded-full">
       <div className="h-full w-full flex justify-between items-center">
         {/* Logo */}
         <div className="hidden md:flex items-center">

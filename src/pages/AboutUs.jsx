@@ -22,7 +22,7 @@ function AboutUs() {
  const [show, setShow] = useState("hidden");
  const [show2, setShow2] = useState("hidden");
 
- const rotation1 = i18n.language === 'en' ? "-right-60 md:top-28 lg:top-20 xl:top-10" : "-left-60 md:top-28 lg:top-8",
+ const rotation1 = i18n.language === 'en' ? (show ? "-right-60 md:top-28 lg:top-24 xl:top-18" : "-right-60 md:top-28 lg:top-40 xl:top-30") : "-left-60 md:top-28 lg:top-20 xl:top-18",
   rotation2 = i18n.language === 'en' ? " -left-56" : "-right-60";
 
  const btn_pos = i18n.language === 'en' ? "pe-14" : "pe-24";
@@ -156,7 +156,7 @@ function AboutUs() {
     <article className='my-10 space-y-10 md:px-1 w-full'>
      <h1 className='text-2xl font-bold'>{t('AboutOur')}</h1>
      <div className='flex flex-col items-center'>
-      <video className='h-full rounded-2xl' controls controlsList='nodownload' autoPlay src={vid} />
+      <video className='h-full w-full rounded-2xl' controls controlsList='nodownload' autoPlay src={vid} />
      </div>
     </article>
    </section>
@@ -164,18 +164,18 @@ function AboutUs() {
    <section className='relative grid grid-cols-1 lg:grid-cols-3'>
     {/* Image on Top */}
     <article data-aos="fade-left" data-aos-duration="1000" className="relative z-20">
-     <img src={group} className={`md:pr-2 hidden px-1 lg:block absolute w-full ${show ? 'h-60' : 'h-96'} ${rotation1}`} alt="Meeting" />
+     <img src={group} className={`md:pr-2 hidden px-1 lg:block absolute w-full ${show ? 'h-80' : 'h-96'} ${rotation1}`} alt="Meeting" />
     </article>
 
     {/* Text Below the Image */}
     <div className="ps-8 lg:ps-20 col-span-2">
-     <article data-aos="fade-right" data-aos-duration="1000" className={`space-y-6 text-[var(--LightTxt)] bg-[var(--Light)] p-8 ${i18n.language == 'en' ? 'md:pl-12 lg:pl-60 pl-12' : "md:pr-12 lg:pr-60 pr-12"} rounded-s-4xl`}>
-      <h1 className='text-xl md:text-2xl font-bold'>{t('AcademyBackground')}</h1>
-      <h3 className='font-bold'>{t('OurJourney')}</h3>
+     <article data-aos="fade-right" data-aos-duration="1000" className={`space-y-10 py-20 text-[var(--LightTxt)] bg-[var(--Light)] p-8 ${i18n.language == 'en' ? 'md:pl-12 lg:pl-60 pl-12' : "md:pr-12 lg:pr-60 pr-12"} rounded-s-[100px]`}>
+      <h1 className='text-3xl font-bold text-black'>{t('AcademyBackground')}</h1>
+      <h3 className='font-bold text-2xl'>{t('OurJourney')}</h3>
       <p className='w-full lg:w-3/4'>{t('acadback')}</p>
 
       <section className={`my-3 space-y-3 ${show}`}>
-       <h1 className='text-lg font-bold'>{t('OurAchievements')}</h1>
+       <h1 className='text-2xl font-bold'>{t('OurAchievements')}</h1>
        <p className='w-full lg:w-3/4'>{t('OurAchievementsDescription')}</p>
       </section>
 
@@ -190,7 +190,7 @@ function AboutUs() {
 
    <section className='relative grid grid-cols-1 lg:grid-cols-3'>
     <div className="pe-8 lg:pe-20 col-span-2">
-     <article data-aos="fade-right" data-aos-duration="1000" className={`space-y-6 text-[var(--LightTxt)] bg-[var(--Light)] p-8 ${i18n.language == 'en' ? 'md:pl-12 lg:pl-60 pl-12' : "md:pr-12 lg:pr-60 pr-12"} rounded-e-4xl`}>
+     <article data-aos="fade-right" data-aos-duration="1000" className={`space-y-6 text-[var(--LightTxt)] bg-[var(--Light)] py-20 p-8 ${i18n.language == 'en' ? 'md:pl-12 lg:pl-60 pl-12' : "md:pr-12 lg:pr-60 pr-12"} rounded-e-[100px]`}>
       <h1 className='text-xl md:text-2xl font-bold'>{t('WhyWeAreUnique')}</h1>
       <h3 className='text-lg font-bold'>{t('ExpertGuidance')}</h3>
       <p className='w-full lg:w-3/4 text-lg'>{t('Learn from certified instructors with years of experience.')}</p>
@@ -220,8 +220,8 @@ function AboutUs() {
     </article>
    </section>
 
-   <section data-aos="fade-up" className='px-10 md:px-12 lg:px-60 space-y-10 lg:space-y-20'>
-    <h1 className='text-2xl md:text-3xl font-bold text-center'>
+   <section data-aos="fade-up" className='px-10 md:px-12 lg:px-60 space-y-10 lg:space-y-40'>
+    <h1 className='text-2xl md:text-3xl font-bold'>
      {t('OurTeachingApproach')}
     </h1>
 
@@ -229,7 +229,7 @@ function AboutUs() {
      <div className="grid grid-cols-1 lg:grid-cols-4 lg:my-20 gap-2 md:gap-8">
       {currentFeatures.map((feature, index) => (
        <article data-aos="fade-up" data-aos-delay={feature.number * 100} key={index} className="bg-[var(--Light)] text-[var(--LightTxt)] p-4 rounded-3xl shadow-lg lg:my-0"
-        style={{ marginTop: `-${feature.number * 30}px`}}>
+        style={{ marginTop: `-${feature.number * 30}px` }}>
         <p className="text-4xl font-bold my-6 text-center">{feature.number}</p>
         <h2 className="text-xl md:text-2xl font-semibold my-6 text-center">
          {feature.title}
@@ -260,7 +260,7 @@ function AboutUs() {
    </section>
 
    <section data-aos="fade-up" className='px-10 md:px-12 lg:px-60 space-y-10'>
-    <h1 className='font-bold text-xl md:text-2xl'>{t('MeetOurInstructors')}</h1>
+    <h1 className='font-bold text-2xl md:text-3xl'>{t('MeetOurInstructors')}</h1>
 
     <article className="px-1.5">
      <div ref={sliderRef} className="keen-slider" dir="ltr">

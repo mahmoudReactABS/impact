@@ -2,7 +2,7 @@
 @import "react-datepicker/dist/react-datepicker.css";
 
 :root {
-  font-family: "poppins", sans-serif;
+  font-family: "poppins", "Neo Sans Arabic";
 
   /* website colors */
   --GradBg: #004a8f;
@@ -33,17 +33,15 @@
   --meridiem-selected-text-color: black;
 }
 
-*,
-*::after,
-*::before {
-  font-family: "poppins";
-}
-
 button,
 Link {
   cursor: pointer;
 }
 
-hr{
-  color:var(--SubTextBorder)
+* {
+  line-height: 1.4;
+}
+
+hr {
+  color: var(--SubTextBorder);
 }
