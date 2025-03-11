@@ -156,7 +156,7 @@ function AboutUs() {
     <article className='my-10 space-y-10 md:px-1 w-full'>
      <h1 className='text-2xl font-bold'>{t('AboutOur')}</h1>
      <div className='flex flex-col items-center'>
-      <video className='h-full w-full rounded-2xl' controls controlsList='nodownload' autoPlay src={vid} />
+      <video className='h-full w-full rounded-2xl' controls controlsList='nodownload' src={vid} />
      </div>
     </article>
    </section>

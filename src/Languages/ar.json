@@ -46,9 +46,9 @@
   },
   "liveSession": {
     "title": "حصة مباشرة",
-    "duration": "ساعتين لكل حصة",
-    "sessionsPerWeek": "2-3 حصص في الأسبوع",
-    "schedule": "الجداول متاحة على مدار الساعة",
+    "duration": "ساعة لكل حصة",
+    "sessionsPerWeek": "حصص في الأسبوع",
+    "schedule247": "الجداول متاحة على مدار الساعة",
     "moreDetails": "تفاصيل أكثر"
   },
   "aboutUs": "من نحن",
@@ -56,7 +56,7 @@
   "privacyPolicy": "سياسة الخصوصية",
   "contentPolicy": "سياسة المحتوى",
   "termsOfUse": "شروط الاستخدام",
-  "designedBy": "تم التصميم والتطوير بواسطة: ABSai.dev",
+  "designedBy": "تم التصميم والتطوير بواسطة: ",
   "allRightsReserved": "جميع الحقوق محفوظة @2025 impact.com",
   "quickLinks": "الروابط السريعة",
   "home": "الصفحة الرئيسية",
@@ -143,7 +143,7 @@
   "freeTest": "اختبار مجاني",
   "freeSess": "حصة مجانية",
   "applicationSuccess": "تم تقديم الطلب بنجاح",
-  "1level":"مستوى واحد",
-  "Details":"التفاصيل",
-  "other":"أخرى"
+  "1level": "مستوى واحد",
+  "Details": "التفاصيل",
+  "other": "أخرى"
 }

@@ -51,7 +51,7 @@ function Home() {
       <section className='text-center space-y-4 md:px-[120px] px-10'>
         <h1 className='text-2xl md:text-3xl font-bold'>{t('ourJourney')}</h1>
         <div data-aos="fade-up" data-aos-duration="2500" data-aos-delay="400" className='flex justify-center items-center'>
-          <video className='w-[83.5%] px-4 rounded-4xl' controls autoPlay src={video} />
+          <video className='w-[83.5%] px-4 rounded-4xl' controls src={video} />
         </div>
       </section>
 

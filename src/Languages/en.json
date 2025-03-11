@@ -46,9 +46,9 @@
   },
   "liveSession": {
     "title": "Live Sessions",
-    "duration": "2 hours per session",
-    "sessionsPerWeek": "2-3 Sessions per week",
-    "schedule": "Schedules available 24/7",
+    "duration": "hours per session",
+    "sessionsPerWeek": "Sessions per week",
+    "schedule247": "Schedules available 24/7",
     "moreDetails": "More Details"
   },
   "aboutUs": "About Us",
@@ -142,7 +142,7 @@
   "freeTest": "Free Test",
   "freeSess": "Free Session",
   "applicationSuccess": "Application Submitted Successfully",
-  "1level":"1 Level",
-  "Details":"Details",
-  "other":"Other"
+  "1level": "1 Level",
+  "Details": "Details",
+  "other": "Other"
 }

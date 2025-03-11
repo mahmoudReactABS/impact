@@ -11,6 +11,7 @@ function HomePage() {
  const [freeTest, setFreeTest] = useState([]);
  const [freeSession, setFreeSession] = useState([]);
  const [requests, setRequests] = useState([]);
+ const [payment, setPayment] = useState([]);
 
  const fetchData = async (collectionName, setterFunction) => {
   try {
@@ -27,6 +28,7 @@ function HomePage() {
   fetchData('Free Test', setFreeTest);
   fetchData('Free Session', setFreeSession);
   fetchData('Requests', setRequests);
+  fetchData('Payments', setPayment);
  }, []);
 
  const dataChart = {
@@ -58,8 +60,8 @@ function HomePage() {
  const details = [
   { number: freeTest.length, description: 'Free Test' },
   { number: freeSession.length, description: 'Free Session' },
-  { number: freeTest.length+freeSession.length, description: 'Total Student' },
-  { number: '350', description: 'Paid Courses' },
+  { number: freeTest.length + freeSession.length + payment.length, description: 'Total Student' },
+  { number: payment.length, description: 'Paid Courses' },
  ];
 
  return (
@@ -120,7 +122,7 @@ function HomePage() {
       </thead>
 
       <tbody>
-       {requests.slice(0,3).map((req) => (
+       {requests.slice(0, 3).map((req) => (
         <tr key={req.id} className="hover:bg-gray-100">
          <td className="p-4">{req.name}</td>
          <td className="p-4">{req.email}</td>

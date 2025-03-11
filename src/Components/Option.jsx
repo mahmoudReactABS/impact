@@ -111,7 +111,6 @@ function Option(props) {
           state={{
             number: props.number, courseCategory: props.courseCategory, option: props.option, levelno: props.levelno,
             priceAfter: finalPriceAfter || props.priceAfter,
-            priceBefore: finalPriceBefore || props.priceBefore,
             duration: props.duration, totalTime: props.totalTime, sessionPerWeek: props.sessionPerWeek, Hours: props.Hours, scheduleType: props.scheduleType
           }} className='bg-white p-3 text-black rounded-3xl w-full block'>
           {t('enrll')}

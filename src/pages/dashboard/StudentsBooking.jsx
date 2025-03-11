@@ -9,6 +9,7 @@ function StudentsBooking() {
   const [selectedButton, setSelectedButton] = useState('Free Session');
   const [isOpen, setIsOpen] = useState(false);
   const [sorted, setSorted] = useState(null);
+  const [sortDirection, setSortDirection] = useState('asc');
 
   const filteredRequests = requests.filter((req) =>
     req.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -16,9 +17,13 @@ function StudentsBooking() {
   );
 
   const sortedRequests = sorted ? [...filteredRequests].sort((a, b) => {
-    if (a[sorted] > b[sorted]) return 1;
-    if (a[sorted] < b[sorted]) return -1;
-    return 0;
+    let comparison = 0;
+    if (a[sorted] > b[sorted]) {
+      comparison = 1;
+    } else if (a[sorted] < b[sorted]) {
+      comparison = -1;
+    }
+    return sortDirection === 'asc' ? comparison : -comparison;
   }) : filteredRequests;
 
   const buttons = [{ name: "Courses" }, { name: "Free Test" }, { name: "Free Session" }];
@@ -36,11 +41,20 @@ function StudentsBooking() {
     };
 
     fetchRequests();
-  }, [selectedButton, sorted]);
+  }, [selectedButton]);
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
   const handleButtonClick = (button) => setSelectedButton(button);
+
+  const handleSortChange = (field) => {
+    if (sorted === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSorted(field);
+      setSortDirection('asc');
+    }
+  };
 
   return (
     <main className="space-y-10">
@@ -60,19 +74,19 @@ function StudentsBooking() {
           {isOpen && (
             <div className="absolute -right-20 mt-2 w-fit rounded-lg border-2 border-[var(--Yellow)] shadow-lg bg-[var(--Input)]">
               <div className="w-full">
-                <button onClick={() => setSorted("name")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                <button onClick={() => handleSortChange("name")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
                   Name
                 </button>
                 <hr />
-                <button onClick={() => setSorted("country")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                <button onClick={() => handleSortChange("country")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
                   Country
                 </button>
                 <hr />
-                <button onClick={() => setSorted("date")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                <button onClick={() => handleSortChange("date")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
                   Date
                 </button>
                 <hr />
-                <button onClick={() => setSorted("time")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                <button onClick={() => handleSortChange("time")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
                   Time
                 </button>
               </div>

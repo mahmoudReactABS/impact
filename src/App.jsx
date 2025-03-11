@@ -13,6 +13,7 @@ import Courses from './pages/Courses';
 import CourseDetails from './pages/info';
 import Checkout from './pages/Checkout';
 import FreeTest from './pages/FreeTest';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import Login from './pages/dashboard/Login';
 import HomePage from './pages/dashboard/HomePage';
 import DashLayout from './Layouts/DashLayout';
@@ -24,6 +25,7 @@ import StudentsBooking from './pages/dashboard/StudentsBooking';
 import CoursesPlans from './pages/dashboard/CoursesPlans';
 import EditCourse from './Components/dashboard/EditCourse';
 import AddCourse from './Components/dashboard/AddCourse';
+import Payment from './pages/dashboard/Payment';
 
 import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './ProtectedRoute';
@@ -39,6 +41,7 @@ function App() {
             <Route path="about" element={<AboutUs />} />
             <Route path="courses" element={<Courses />} />
             <Route path="courses/:courseName" element={<CourseDetails />} />
+            <Route path="PrivacyPolicy" element={<PrivacyPolicy />} />
           </Route>
 
           {/* Checkout page with a different layout */}
@@ -55,6 +58,7 @@ function App() {
             <Route path="settings/AddNew" element={<ProtectedRoute element={<AddNewAdmin />} />} />
             <Route path="settings/UpdateAdmin" element={<ProtectedRoute element={<EditAdmin />} />} />
             <Route path="requests" element={<ProtectedRoute element={<Requests />} />} />
+            <Route path="payment" element={<ProtectedRoute element={<Payment />} />} />
             <Route path="booking" element={<ProtectedRoute element={<StudentsBooking />} />} />
             <Route path="courses" element={<ProtectedRoute element={<CoursesPlans />} />} />
             <Route path="courses/editcourse" element={<ProtectedRoute element={<EditCourse />} />} />

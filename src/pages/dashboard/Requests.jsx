@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HiMiniAdjustmentsHorizontal } from "react-icons/hi2";
 import { db, collection, doc, addDoc, deleteDoc } from '../../data/firebaseConfig';
-import { query, getDocs } from 'firebase/firestore';
+import { query, onSnapshot } from 'firebase/firestore';
 import { Modal } from 'react-responsive-modal';
 import TimeKeeper from 'react-timekeeper';
 import { Datepicker } from "flowbite-react";
@@ -14,26 +14,25 @@ function Requests() {
     const [time, setTime] = useState('12:00');
     const [date, setDate] = useState(new Date());
     const [isOpen, setIsOpen] = useState(false);
-    const [sorted, setSorted] = useState(null);
+    const [sorted, setSorted] = useState({ field: null, direction: 'asc' });
 
+    // Real-time listener using onSnapshot
     useEffect(() => {
-        const fetchRequests = async () => {
-            try {
-                const q = query(collection(db, 'Requests'));
-                const querySnapshot = await getDocs(q);
+        const q = query(collection(db, 'Requests'));
 
-                if (querySnapshot.empty) {
-                    alert('No Requests found');
-                } else {
-                    const req = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-                    setRequests(req);
-                }
-            } catch (e) {
-                console.error('Error fetching Requests: ', e);
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            if (querySnapshot.empty) {
+                alert('No Requests found');
+            } else {
+                const req = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                setRequests(req);  // Update state with the latest data
             }
-        };
+        }, (error) => {
+            console.error('Error fetching Requests: ', error);
+        });
 
-        fetchRequests();
+        // Cleanup function to unsubscribe when the component unmounts
+        return () => unsubscribe();
     }, []);
 
     const handleSearchChange = (e) => setSearchQuery(e.target.value);
@@ -43,11 +42,20 @@ function Requests() {
         req.phoneNumber.includes(searchQuery)
     );
 
-    const sortedRequests = sorted ? [...filteredRequests].sort((a, b) => {
-        if (a[sorted] > b[sorted]) return 1;
-        if (a[sorted] < b[sorted]) return -1;
-        return 0;
-    }) : filteredRequests;
+    const handleSortChange = (field) => {
+        setSorted((prev) => {
+            const direction = prev.field === field && prev.direction === 'asc' ? 'desc' : 'asc';
+            return { field, direction };
+        });
+    };
+
+    const sortedRequests = sorted.field
+        ? [...filteredRequests].sort((a, b) => {
+            if (a[sorted.field] > b[sorted.field]) return sorted.direction === 'asc' ? 1 : -1;
+            if (a[sorted.field] < b[sorted.field]) return sorted.direction === 'asc' ? -1 : 1;
+            return 0;
+        })
+        : filteredRequests;
 
     const submitData = async () => {
         if (!date || !time || !selectedRequestId) {
@@ -71,8 +79,10 @@ function Requests() {
 
             const requestRef = doc(db, 'Requests', selectedRequestId);
             await deleteDoc(requestRef);
+
             const updatedRequests = requests.filter((req) => req.id !== selectedRequestId);
             setRequests(updatedRequests);
+
             setOpenModal(false);
             window.scroll(0, 0);
         } catch (e) {
@@ -97,15 +107,15 @@ function Requests() {
                     {isOpen && (
                         <div className="absolute -right-20 mt-2 w-fit rounded-lg border-2 border-[var(--Yellow)] shadow-lg bg-[var(--Input)]">
                             <div className="w-full">
-                                <button onClick={() => setSorted("name")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                                <button onClick={() => handleSortChange('name')} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
                                     Name
                                 </button>
                                 <hr />
-                                <button onClick={() => setSorted("country")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                                <button onClick={() => handleSortChange('country')} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
                                     Country
                                 </button>
                                 <hr />
-                                <button onClick={() => setSorted("option")} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
+                                <button onClick={() => handleSortChange('option')} className="w-full px-4 py-2 text-[var(--SubText)] hover:bg-[var(--Yellow)]/50">
                                     Option
                                 </button>
                             </div>
@@ -157,8 +167,7 @@ function Requests() {
                                 root: { base: "p-3 h-full w-full focus:outline-none focus:ring-2 focus:ring-[var(--Main)]" },
                                 popup: { footer: { base: "mt-2 flex space-x-2", button: { today: "bg-[var(--Main)] text-white" }, }, },
                                 views: { days: { items: { item: { selected: "bg-[var(--Yellow)] text-white" } } } }
-                            }}
-                        />
+                            }} />
                     </div>
 
                     <div className="p-4 drop-shadow-lg">

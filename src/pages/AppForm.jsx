@@ -45,7 +45,6 @@ const AppForm = () => {
           const courseData = docSnap.data()?.[currentLanguage];
 
           if (courseData) {
-            // Filter based on the course ID (number)
             const filteredCourse = courseData.Options.filter((data) => data.id === formData.number);
             setCourse(filteredCourse);
             setOptions(courseData.Options.map(opt => opt.levelno));
@@ -144,7 +143,7 @@ const AppForm = () => {
               </option>
               {i18n.language === 'ar' ? countries.sort().map((cntry, index) => <option key={index} value={cntry.nameEn}>{cntry.nameAr}</option>) :
                 countriesEn.sort().map((cntry, index) => <option key={index} value={cntry}>{cntry}</option>)}
-              <option disabled value="other">{t('other')}</option>
+              <option value="other">{t('other')}</option>
             </select>
           </div>
 

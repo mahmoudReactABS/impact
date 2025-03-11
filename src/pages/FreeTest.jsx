@@ -5,7 +5,7 @@ import cntris from '../data/Countries.json';
 import Swal from 'sweetalert2';
 import { toast } from "react-hot-toast";
 import { db, collection, addDoc } from '../data/firebaseConfig';
-import { query, where, getDocs, or } from 'firebase/firestore';
+import { query, getDocs } from 'firebase/firestore';
 import vector from '../assets/arrowvector.png';
 
 const FreeTest = () => {
@@ -31,7 +31,7 @@ const FreeTest = () => {
 
   const textAlignment = i18n.language === 'ar' ? 'text-right' : 'text-left';
   const countries = cntris;
-  const countriesAr = countries.map((cnt) => cnt.nameAr);
+
   const countriesEn = countries.map((cnt) => cnt.nameEn);
 
   const handleSubmit = async (e) => {
@@ -49,13 +49,7 @@ const FreeTest = () => {
     }
 
     try {
-      const q = query(collection(db, 'Requests'),
-        or(
-          where('email', '==', formData.email),
-          where('phoneNumber', '==', formData.phoneNumber),
-          where('name', '==', formData.name)
-        )
-      );
+      const q = query(collection(db, 'Requests'));
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
@@ -139,7 +133,7 @@ const FreeTest = () => {
               ? countries.sort().map((cntry, index) => <option key={index} value={cntry.nameEn}>{cntry.nameAr}</option>)
               : countriesEn.sort().map((cntry, index) => <option key={index}>{cntry}</option>)
             }
-            <option disabled value="other">{t('other')}</option>
+            <option value="other">{t('other')}</option>
           </select>
         </div>
 

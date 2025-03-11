@@ -50,12 +50,12 @@ const Footer = () => {
       </article>
 
       <article data-aos="fade-right" data-aos-duration="1000" className='space-y-4 mt-12 text-md'>
-        <a href={i18n.language == 'en' ? 'https://drive.google.com/file/d/15upFpPxAy03B9X3mz_AXyfXT7cGnDiuX/view?usp=sharing' : 'https://drive.google.com/file/d/15upFpPxAy03B9X3mz_AXyfXT7cGnDiuX/view?usp=sharing'} target="_blank">
+        <Link to='/PrivacyPolicy'>
           <span className='border-b-2'>{t('privacyPolicy')}</span> |
           <span className='border-b-2'>{t('contentPolicy')}</span> |
           <span className='border-b-2'>{t('termsOfUse')}</span>
-        </a>
-        <p className='my-3'>{t('designedBy')} <a href='https://ABSai.dev' target='_blank'></a></p>
+        </Link>
+        <p className='my-3'>{t('designedBy')} <a href='https://ABSai.dev' target='_blank'>ABSai.dev</a></p>
         <p>{t('allRightsReserved')}</p>
       </article>
     </footer>
