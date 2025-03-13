@@ -8,10 +8,15 @@ import { query, getDocs } from 'firebase/firestore';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function HomePage() {
+ const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
  const [freeTest, setFreeTest] = useState([]);
  const [freeSession, setFreeSession] = useState([]);
  const [requests, setRequests] = useState([]);
- const [payment, setPayment] = useState([]);
+ const [Payments, setPayments] = useState([]);
+ const [resLastMonth, setResLastMonth] = useState(0);
+ const [LastMonth, setLastMonth] = useState();
+ const [LastYear, setLastYear] = useState();
 
  const fetchData = async (collectionName, setterFunction) => {
   try {
@@ -24,25 +29,75 @@ function HomePage() {
   }
  };
 
+ const getStats = () => {
+  const today = new Date();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+
+  const prevMonth = month === 0 ? 11 : month - 1;
+  const prevYear = month === 0 ? year - 1 : year;
+
+  const filteredPayments = Payments.filter(one => {
+   const paymentDate = one.dateSubmit.split('/');
+   const paymentMonth = parseInt(paymentDate[1], 10) - 1;
+   const paymentYear = parseInt(paymentDate[2], 10);
+
+   return paymentMonth === prevMonth && paymentYear === prevYear;
+  });
+
+  setResLastMonth(filteredPayments.length);
+  setLastMonth(prevMonth);
+  setLastYear(prevYear);
+ };
+
+ const processChartData = () => {
+  const monthData = Array(12).fill(0);
+
+  Payments.forEach(payment => {
+   const paymentDate = payment.dateSubmit;
+   const [day, month, year] = paymentDate.split('/').map(Number);
+   const monthIndex = month - 1;
+   monthData[monthIndex] += 1;
+  });
+
+  setDataChart(prevState => ({
+   ...prevState,
+   datasets: [
+    {
+     ...prevState.datasets[0],
+     data: monthData,
+    },
+   ],
+  }));
+ };
+
  useEffect(() => {
   fetchData('Free Test', setFreeTest);
   fetchData('Free Session', setFreeSession);
   fetchData('Requests', setRequests);
-  fetchData('Payments', setPayment);
+  fetchData('Payments', setPayments);
  }, []);
 
- const dataChart = {
-  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+
+ useEffect(() => {
+  if (Payments.length > 0) {
+   getStats();
+   processChartData();
+  }
+ }, [Payments]);
+
+ const [dataChart, setDataChart] = useState({
+  labels: months,
   datasets: [
    {
-    data: [125, 260, 125, 175, 125, 200, 222, 0, 0, 0],
+    data: Array(12).fill(0),
     borderRadius: 50,
     borderWidth: 0,
     backgroundColor: '#F5D019',
     barThickness: 10,
    },
   ],
- };
+ });
 
  const options = {
   responsive: true,
@@ -60,8 +115,8 @@ function HomePage() {
  const details = [
   { number: freeTest.length, description: 'Free Test' },
   { number: freeSession.length, description: 'Free Session' },
-  { number: freeTest.length + freeSession.length + payment.length, description: 'Total Student' },
-  { number: payment.length, description: 'Paid Courses' },
+  { number: freeTest.length + freeSession.length + Payments.length, description: 'Total Student' },
+  { number: Payments.length, description: 'Paid Courses' },
  ];
 
  return (
@@ -93,8 +148,8 @@ function HomePage() {
      </p>
 
      <div className="mt-auto justify-self-end space-y-2">
-      <h1 className="text-3xl text-[var(--Yellow)] font-bold">250 Students</h1>
-      <p>July 2024</p>
+      <h1 className="text-3xl text-[var(--Yellow)] font-bold">{resLastMonth} Students</h1>
+      <p>{months[LastMonth]} {LastYear}</p>
      </div>
     </article>
 
@@ -130,10 +185,11 @@ function HomePage() {
          <td className="p-4">{req.country}</td>
          <td className="p-4">{req.option}</td>
          <td className="p-4">
-          <Link className="underline text-[var(--Yellow)]" to="/dash/requests" onClick={() => window.scroll(0, 0)}>select date</Link>
+          <Link className="underline text-[var(--Yellow)]" to="/dash/requests" onClick={() => window.scroll(0, 0)}>
+           select date
+          </Link>
          </td>
-        </tr>
-       ))}
+        </tr>))}
       </tbody>
      </table>
     </div>
