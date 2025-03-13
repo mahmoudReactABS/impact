@@ -6,7 +6,7 @@ import visa from '../assets/visa.png';
 import mastercard from '../assets/Mastercard.png';
 import pp from '../assets/pp.png';
 import { db, collection, addDoc } from '../data/firebaseConfig';
-import { doc, getDoc, query, where, getDocs, or } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 function Checkout() {
   const { t, i18n } = useTranslation();
@@ -16,11 +16,12 @@ function Checkout() {
   const currentLanguage = i18n.language;
 
   const [course, setCourse] = useState({ Options: [{ duration: 'N/A', Hours: 'N/A', priceAfter: 'N/A' }] });
-  const [price, setPrice] = useState(null);
+  const [finalPrice, setPrice] = useState(null);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [loading, setLoading] = useState(true); // Loading state
 
-  const send = async () => {
+  const send = async (filteredPrice) => {
     if (latitude && longitude) {
       try {
         const dataAfter = await fetch("https://impact-backend-ten.vercel.app/get-currency", {
@@ -31,15 +32,18 @@ function Checkout() {
           body: JSON.stringify({
             latitude,
             longitude,
-            priceUSD: formData.priceAfter,
+            priceUSD: filteredPrice,
           })
         });
         const finalDataAfter = await dataAfter.json();
         if (finalDataAfter) {
+          console.log(finalDataAfter.finalPrice);
           setPrice(finalDataAfter.finalPrice);
+          setLoading(false); // Set loading to false after data is fetched
         }
       } catch (error) {
         console.error("Error fetching currency data:", error);
+        setLoading(false); // Set loading to false in case of error as well
       }
     }
   };
@@ -56,14 +60,7 @@ function Checkout() {
         }
       );
     }
-    send()
   }, []);
-
-  useEffect(() => {
-    if (latitude && longitude) {
-      send();
-    }
-  }, [latitude, longitude]);
 
   const [cardholderName, setCardholderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
@@ -87,6 +84,11 @@ function Checkout() {
           const filteredOptions = courseLangData.Options.filter(opt => opt.id === formData.number);
           setFiltered(filteredOptions);
           setCourse(courseLangData);
+
+          if (latitude && longitude && filteredOptions.length > 0) {
+            const priceFromFiltered = filteredOptions[0].priceAfter;
+            send(priceFromFiltered);
+          }
         } else {
           console.error('Course not found in Firestore');
         }
@@ -103,7 +105,7 @@ function Checkout() {
     };
 
     fetchCourseData();
-  }, [formData, currentLanguage, t]);
+  }, [formData, currentLanguage, latitude, longitude, t]);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -180,32 +182,39 @@ function Checkout() {
     });
 
     try {
-      const timestamp = new Date().getTime();
-      const date = new Date();
+      const currentDate = new Date();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
 
-      const hours = date.getHours();
-      const minutes = date.getMinutes();
-
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-
-      const hour12 = hours % 12 || 12;
-      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-      const timeString = `${hour12}:${formattedMinutes} ${ampm}`;
+      const timeString = `${hours}:${minutes}`;
 
       const paymentData = {
         courseCategory: formData?.courseCategory,
         courseOption: formData?.option,
         courseType: formData?.type,
         email: formData?.email,
-        money: price,
-        date: `${new Date().getDay()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
-        time: timeString,
+        takenTest: formData?.takenTest,
+        money: finalPrice,
+        dateSubmit: `${new Date().getDay()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
+        timeSubmit: timeString,
         name: formData?.name,
         paymentMethod: selectedOption,
       };
 
+      const RequestData = {
+        courseCategory: formData?.courseCategory,
+        phoneNumber: formData?.phoneNumber,
+        courseOption: formData?.option,
+        courseType: formData?.type,
+        email: formData?.email,
+        country: formData?.country,
+        option: 'Course Reservation',
+        takenTest: formData?.takenTest,
+        name: formData?.name,
+      };
+
       const docRef = await addDoc(collection(db, 'Payments'), paymentData);
+      const docRef1 = await addDoc(collection(db, 'Requests'), RequestData);
       navigate('/');
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -218,7 +227,6 @@ function Checkout() {
       });
     }
   };
-
 
   return (
     <main className="space-y-8 md:px-40 px-4">
@@ -241,7 +249,11 @@ function Checkout() {
           </ul>
           <div>
             <h2 className="text-xl font-bold my-2">{t('price')}</h2>
-            <h2 className="text-5xl text-[var(--Yellow)] font-bold my-2">{price ? price : course?.Options[0]?.priceAfter}</h2>
+            {loading ? (
+              <h2 className="text-5xl font-bold my-2">{t('loading')}</h2>
+            ) : (
+              <h2 className="text-5xl text-[var(--Yellow)] font-bold my-2">{finalPrice}</h2>
+            )}
           </div>
         </article>
 

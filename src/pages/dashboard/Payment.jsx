@@ -115,8 +115,8 @@ function Payment() {
                   <td className="p-4">{req.courseType}</td>
                   <td className="p-4">{req.money}</td>
                   <td className="p-4">{req.paymentMethod}</td>
-                  <td className="p-4">{req.date}</td>
-                  <td className="p-4">{req.time}</td>
+                  <td className="p-4">{req.dateSubmit}</td>
+                  <td className="p-4">{req.timeSubmit}</td>
                 </tr>
               ))}
             </tbody>

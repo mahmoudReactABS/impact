@@ -16,7 +16,6 @@ function Requests() {
     const [isOpen, setIsOpen] = useState(false);
     const [sorted, setSorted] = useState({ field: null, direction: 'asc' });
 
-    // Real-time listener using onSnapshot
     useEffect(() => {
         const q = query(collection(db, 'Requests'));
 
@@ -25,13 +24,12 @@ function Requests() {
                 alert('No Requests found');
             } else {
                 const req = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-                setRequests(req);  // Update state with the latest data
+                setRequests(req);
             }
         }, (error) => {
             console.error('Error fetching Requests: ', error);
         });
 
-        // Cleanup function to unsubscribe when the component unmounts
         return () => unsubscribe();
     }, []);
 
@@ -66,16 +64,33 @@ function Requests() {
         try {
             const selectedRequest = requests.find((req) => req.id === selectedRequestId);
 
-            const requestData = {
-                name: selectedRequest.name,
-                email: selectedRequest.email,
-                phoneNumber: selectedRequest.phoneNumber,
-                country: selectedRequest.country,
-                date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-                time: time
-            };
+            if (selectedRequest.option == 'Course Reservation') {
+                const requestData = {
+                    name: selectedRequest.name,
+                    email: selectedRequest.email,
+                    courseCategory: selectedRequest.courseCategory,
+                    courseType: selectedRequest.courseType,
+                    courseOption: selectedRequest.courseOption,
+                    phoneNumber: selectedRequest.phoneNumber,
+                    takenTest: selectedRequest.takenTest,
+                    country: selectedRequest.country,
+                    date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+                    time: time
+                };
 
-            await addDoc(collection(db, selectedRequest.option), requestData);
+                await addDoc(collection(db, selectedRequest.option), requestData);
+            } else {
+                const requestData = {
+                    name: selectedRequest.name,
+                    email: selectedRequest.email,
+                    phoneNumber: selectedRequest.phoneNumber,
+                    country: selectedRequest.country,
+                    date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+                    time: time
+                };
+
+                await addDoc(collection(db, selectedRequest.option), requestData);
+            }
 
             const requestRef = doc(db, 'Requests', selectedRequestId);
             await deleteDoc(requestRef);

@@ -150,7 +150,7 @@ const AppForm = () => {
           {/* Option Selection */}
           <div className="space-y-2">
             <label className="block text-lg font-bold text-black">{t('option')}</label>
-            <select name="option" value={formData.courseCategory == 'IELTS' ? "Private" : formData.option} onChange={handleChange}
+            <select name="option" value={formData.option} onChange={handleChange}
               style={{ backgroundImage: `url(${vector})`, backgroundPosition: i18n.language == 'en' ? 'right 20px center' : 'left 20px center', backgroundSize: '10px', backgroundRepeat: 'no-repeat', }}
               className="mt-1 appearance-none block w-full px-3 py-2 bg-[var(--Input)] rounded-md">
               <option disabled value="">
