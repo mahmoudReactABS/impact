@@ -5,6 +5,7 @@ import { query, onSnapshot } from 'firebase/firestore';
 import { Modal } from 'react-responsive-modal';
 import TimeKeeper from 'react-timekeeper';
 import { Datepicker } from "flowbite-react";
+import emailjs from "emailjs-com";
 
 function Requests() {
     const [requests, setRequests] = useState([]);
@@ -64,33 +65,26 @@ function Requests() {
         try {
             const selectedRequest = requests.find((req) => req.id === selectedRequestId);
 
-            if (selectedRequest.option == 'Course Reservation') {
-                const requestData = {
-                    name: selectedRequest.name,
-                    email: selectedRequest.email,
+            let requestData = {
+                name: selectedRequest.name,
+                email: selectedRequest.email,
+                phoneNumber: selectedRequest.phoneNumber,
+                country: selectedRequest.country,
+                date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+                time: time
+            };
+
+            if (selectedRequest.option === 'Course Reservation') {
+                requestData = {
+                    ...requestData,
                     courseCategory: selectedRequest.courseCategory,
                     courseType: selectedRequest.courseType,
                     courseOption: selectedRequest.courseOption,
-                    phoneNumber: selectedRequest.phoneNumber,
                     takenTest: selectedRequest.takenTest,
-                    country: selectedRequest.country,
-                    date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-                    time: time
                 };
-
-                await addDoc(collection(db, selectedRequest.option), requestData);
-            } else {
-                const requestData = {
-                    name: selectedRequest.name,
-                    email: selectedRequest.email,
-                    phoneNumber: selectedRequest.phoneNumber,
-                    country: selectedRequest.country,
-                    date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-                    time: time
-                };
-
-                await addDoc(collection(db, selectedRequest.option), requestData);
             }
+
+            await addDoc(collection(db, selectedRequest.option), requestData);
 
             const requestRef = doc(db, 'Requests', selectedRequestId);
             await deleteDoc(requestRef);
@@ -98,8 +92,25 @@ function Requests() {
             const updatedRequests = requests.filter((req) => req.id !== selectedRequestId);
             setRequests(updatedRequests);
 
+            const emailParams = {
+                name: selectedRequest.name,
+                email: selectedRequest.email,
+                phoneNumber: selectedRequest.phoneNumber,
+                country: selectedRequest.country,
+                date: requestData.date,
+                time: requestData.time,
+                option: selectedRequest.option,
+            };
+
+            emailjs.send('service_jvstoib', 'template_7u85sv9', emailParams, 'IBLrUOZvZy3lUUP5l').then((result) => {
+                console.log('Email sent successfully:', result.text);
+            }, (error) => {
+                console.error('Error sending email:', error.text);
+            });
+
             setOpenModal(false);
             window.scroll(0, 0);
+
         } catch (e) {
             console.error('Error processing request: ', e);
             alert('Failed to process the request.');

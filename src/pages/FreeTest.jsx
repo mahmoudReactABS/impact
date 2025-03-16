@@ -52,42 +52,32 @@ const FreeTest = () => {
       const q = query(collection(db, 'Requests'));
       const querySnapshot = await getDocs(q);
 
-      if (!querySnapshot.empty) {
-        Swal.fire({
-          icon: 'error',
-          title: t('error'),
-          text: t('dataAlreadyExists'),
-          timer: 1000,
-          showConfirmButton: false
-        });
-        return;
-      } else {
-        const docRef = await addDoc(collection(db, 'Requests'), {
-          name: formData.name,
-          email: formData.email,
-          phoneNumber: formData.phoneNumber,
-          country: formData.country,
-          option: formData.option
-        });
+      const docRef = await addDoc(collection(db, 'Requests'), {
+        name: formData.name,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        country: formData.country,
+        option: formData.option
+      });
 
-        navigate('/');
-        toast.success(t('applicationSuccess'), {
-          duration: 40000,
-          position: "top-center",
-          style: {
-            background: "var(--Light)",
-            color: "black",
-            padding: "16px",
-            width: "auto",
-            borderRadius: "9999px",
-            maxWidth: "80%",
-            textAlign: "center"
-          }
-        });
+      navigate('/');
+      toast.success(t('applicationSuccess'), {
+        duration: 4000,
+        position: "top-center",
+        style: {
+          background: "var(--Light)",
+          color: "black",
+          padding: "16px",
+          width: "auto",
+          borderRadius: "9999px",
+          maxWidth: "80%",
+          textAlign: "center"
+        }
+      });
 
-        window.scroll(0, 0);
-      }
-    } catch (e) {
+      window.scroll(0, 0);
+    }
+    catch (e) {
       console.error("Error adding document: ", e);
       Swal.fire({
         icon: 'error',

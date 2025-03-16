@@ -50,7 +50,7 @@ const Footer = () => {
       </article>
 
       <article data-aos="fade-right" data-aos-duration="1000" className='space-y-4 mt-12 text-md'>
-        <Link to='/PrivacyPolicy'>
+        <Link onClick={() => window.scroll(0, 0)} to='/PrivacyPolicy'>
           <span className='border-b-2'>{t('privacyPolicy')}</span> |
           <span className='border-b-2'>{t('contentPolicy')}</span> |
           <span className='border-b-2'>{t('termsOfUse')}</span>

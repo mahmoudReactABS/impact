@@ -48,9 +48,16 @@ function CoursesPlans() {
         const courseRef = doc(db, "courses", courseData.id);
         const updatedOptions = courseData.en.Options.filter(option => option.id !== levelToDelete);
 
-        await updateDoc(courseRef, { "en.Options": updatedOptions, "ar.Options": courseData.ar.Options.filter(option => option.id !== levelToDelete) });
+        await updateDoc(courseRef, {
+          "en.Options": updatedOptions,
+          "ar.Options": courseData.ar.Options.filter(option => option.id !== levelToDelete)
+        });
 
-        setCourseData({ ...courseData, en: { ...courseData.en, Options: updatedOptions }, ar: { ...courseData.ar, Options: courseData.ar.Options.filter(option => option.id !== levelToDelete) }, });
+        setCourseData({
+          ...courseData,
+          en: { ...courseData.en, Options: updatedOptions },
+          ar: { ...courseData.ar, Options: courseData.ar.Options.filter(option => option.id !== levelToDelete) },
+        });
 
         setOpenModal(false);
         setOpenSuccessModal(true);
@@ -160,7 +167,7 @@ function CoursesPlans() {
       </Modal>
 
       <div className="flex justify-end">
-        <button onClick={() => navigate('/dash/courses/addcourse', { state: {tab: activeTab } })} className="px-20 py-4 rounded-xl text-2xl bg-[var(--Yellow)]">
+        <button onClick={() => navigate('/dash/courses/addcourse', { state: { tab: activeTab } })} className="px-20 py-4 rounded-xl text-2xl bg-[var(--Yellow)]">
           Add
         </button>
       </div>
