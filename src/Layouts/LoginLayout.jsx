@@ -12,7 +12,7 @@ const LoginLayout = () => {
    <I18nextProvider i18n={i18n}>
     <AdminProvider>
      <Link to="">
-     <img src={logo} data-aos="fade-down" data-aos-duration="5000" className="w-[35%] h-12 my-12 md:px-40 px-4" alt="Logo" />
+     <img src={logo} className="h-12 my-12 md:px-40 px-4" alt="Logo" />
      </Link>
      <Outlet />
      <Footer />
