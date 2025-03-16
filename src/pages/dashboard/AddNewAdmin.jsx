@@ -45,7 +45,7 @@ function AddNewAdmin() {
             setTimeout(() => {
                 navigate('/dash/settings');
                 setOpenSuccessModal(false);
-            }, 2000);
+            }, 1000);
             window.scroll(0, 0);
         } catch (error) {
             console.error('Error adding document: ', error);

@@ -61,7 +61,7 @@ function CoursesPlans() {
 
         setOpenModal(false);
         setOpenSuccessModal(true);
-        setTimeout(() => setOpenSuccessModal(false), 2000);
+        setTimeout(() => setOpenSuccessModal(false), 1000);
       } catch (e) {
         console.error('Error deleting course level: ', e);
         Swal.fire({ icon: 'error', title: 'Failed!', text: 'Failed to delete the course level. Please try again.', timer: 1500, showConfirmButton: false });

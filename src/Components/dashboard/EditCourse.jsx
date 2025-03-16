@@ -86,10 +86,7 @@ function EditCourse() {
       const totalTimeAr = `${totalTimeNo} ${totalTimeUnitAr}`;
 
       const updatedEnOptions = courseData.en.Options.map(option =>
-        option.id === levelId
-          ? { ...option, priceBefore, priceAfter, duration: sessionNo, totalTime, sessionPerWeek, Hours: hours, scheduleType, levelno }
-          : option
-      );
+        option.id === levelId ? { ...option, priceBefore, priceAfter, duration: sessionNo, totalTime, sessionPerWeek, Hours: hours, scheduleType, levelno } : option);
 
       const updatedArOptions = courseData.ar.Options.map(option =>
         option.id === levelId

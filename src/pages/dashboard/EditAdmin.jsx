@@ -81,7 +81,7 @@ function EditAdmin() {
    setTimeout(() => {
     navigate('/dash/settings');
     setOpenSuccessModal(false);
-   }, 2000);
+   }, 1000);
 
 
    window.scroll(0, 0);
@@ -146,7 +146,7 @@ function EditAdmin() {
    </section>
 
    {/* Success Modal */}
-   <Modal open={openSuccessModal} onClose={() => setOpenSuccessModal(false)} center classNames={{ modal: "rounded-2xl",closeIcon: "bg-red-500 text-white" }}>
+   <Modal open={openSuccessModal} onClose={() => setOpenSuccessModal(false)} center classNames={{ modal: "rounded-2xl" }}>
     <h2 className="my-12">Successfully Edited</h2>
    </Modal>
   </main>

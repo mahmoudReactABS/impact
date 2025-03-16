@@ -18,7 +18,7 @@ const OtherAdmin = (props) => {
   onDelete(info.id);
   setOpenModal(false);
   setOpenSuccessModal(true);
-  setTimeout(() => setOpenSuccessModal(false), 2000);
+  setTimeout(() => setOpenSuccessModal(false), 1000);
   window.scroll(0, 0)
  };
 

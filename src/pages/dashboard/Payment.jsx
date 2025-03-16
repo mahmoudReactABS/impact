@@ -8,17 +8,15 @@ function Payment() {
   const [sorted, setSorted] = useState({ field: null, direction: 'asc' });
   const [isOpen, setIsOpen] = useState(false);
 
-  // Real-time updates from Firestore using onSnapshot
   useEffect(() => {
     const q = query(collection(db, 'Payments'));
-    
-    // Subscribe to real-time updates
+
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.empty) {
         alert('No Payments found');
       } else {
         const req = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setPayment(req); 
+        setPayment(req);
       }
     }, (error) => {
       console.error('Error fetching Payments: ', error);
@@ -47,10 +45,10 @@ function Payment() {
 
   const sortedPayments = sorted.field
     ? [...filteredData].sort((a, b) => {
-        if (a[sorted.field] > b[sorted.field]) return sorted.direction === 'asc' ? 1 : -1;
-        if (a[sorted.field] < b[sorted.field]) return sorted.direction === 'asc' ? -1 : 1;
-        return 0;
-      })
+      if (a[sorted.field] > b[sorted.field]) return sorted.direction === 'asc' ? 1 : -1;
+      if (a[sorted.field] < b[sorted.field]) return sorted.direction === 'asc' ? -1 : 1;
+      return 0;
+    })
     : filteredData;
 
   const handleSortChange = (field) => {
